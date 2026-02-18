@@ -27,8 +27,8 @@
     .hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;}
     
     /* POSTER WALL */
-    .poster-wall{position:absolute;inset:0;z-index:1;overflow:hidden;display:grid;grid-template-columns:repeat(10,1fr);grid-template-rows:repeat(5,1fr);gap:8px;padding:0;opacity:0.12;}
-    .poster-wall::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 80% at 50% 50%,transparent 15%,rgba(0,0,0,0.6) 50%,rgba(0,0,0,0.92) 85%);pointer-events:none;z-index:2;}
+    .poster-wall{position:absolute;inset:0;z-index:1;overflow:hidden;display:grid;grid-template-columns:repeat(10,1fr);grid-template-rows:repeat(5,1fr);gap:8px;padding:0;opacity:0.38;}
+    .poster-wall::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 80% at 50% 50%,transparent 10%,rgba(0,0,0,0.45) 45%,rgba(0,0,0,0.82) 80%);pointer-events:none;z-index:2;}
     .poster{width:100%;height:100%;object-fit:cover;border-radius:2px;transition:opacity 0.6s ease-in-out,transform 0.6s ease-in-out;}
     .poster.fade-out{opacity:0;transform:scale(0.95);}
     @keyframes posterFadeIn{from{opacity:0;transform:scale(0.9);}to{opacity:1;transform:scale(1);}}
@@ -191,16 +191,11 @@
       <div class="hstat"><div class="hstat-n">5,000+</div><div class="hstat-l">Movies</div></div>
       <div class="hstat"><div class="hstat-n">800+</div><div class="hstat-l">TV Shows</div></div>
       <div class="hstat"><div class="hstat-n">16TB</div><div class="hstat-l">Storage</div></div>
-      <div class="hstat"><div class="hstat-n">$0</div><div class="hstat-l">Ads</div></div>
+      <div class="hstat"><div class="hstat-n">$5</div><div class="hstat-l">Per Month</div></div>
     </div>
   </div>
 </section>
 
-<section class="section narrow">
-  <span class="stag">New here?</span>
-  <h2>What even is <span>Plex?</span></h2>
-  <div class="plex-block">Plex lets people <strong>share their film and TV libraries</strong> with friends and family. Think of it as a private Netflix — install the app, sign in with the account we've set up for you, and you're watching within minutes.</div>
-</section>
 <hr class="rule"/>
 
 <section class="section wide" id="features">
@@ -218,7 +213,7 @@
 <hr class="rule"/>
 
 <section class="section wide" id="plus">
-  <span class="stag">SuperPlex+</span>
+  <span class="stag">SuperPlex</span>
   <h2>Unlock <span>Live TV.</span></h2>
   <div class="plus-box">
     <div class="plus-left">
@@ -532,10 +527,19 @@ function renderPosters() {
     img.loading = i < 20 ? 'eager' : 'lazy';
     img.style.animation = `posterFadeIn 0.8s ease-in ${i * 0.02}s forwards`;
     
-    // Fallback on error
+    // Fallback on error — hide the broken slot cleanly
     img.onerror = function() {
-      this.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
-      this.style.opacity = '0.3';
+      this.onerror = null; // prevent infinite loop
+      this.style.background = '#111';
+      this.style.visibility = 'hidden';
+      // Try a different poster from the list
+      const fallbackIndex = Math.floor(Math.random() * allPosters.length);
+      const fallbackImg = new Image();
+      fallbackImg.onload = () => {
+        this.src = allPosters[fallbackIndex];
+        this.style.visibility = '';
+      };
+      fallbackImg.src = allPosters[fallbackIndex];
     };
     
     wall.appendChild(img);
