@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to SuperPlex</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --gold: #e5b94e;
+      --dark: #0a0a0f;
+      --mid: #13131a;
+      --light: #f0ece4;
+      --muted: #6b6b80;
+    }
+
+    body {
+      background-color: var(--dark);
+      color: var(--light);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* Atmospheric background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(229,185,78,0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 80% 80%, rgba(229,185,78,0.04) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    /* Grain texture */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    .container {
+      position: relative;
+      text-align: center;
+      padding: 2rem;
+      max-width: 560px;
+      width: 100%;
+      animation: fadeUp 0.9s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .check {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      border: 2px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 2rem;
+      animation: popIn 0.6s 0.3s cubic-bezier(0.34,1.56,0.64,1) both;
+    }
+
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.5); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    .check svg {
+      width: 28px;
+      height: 28px;
+      stroke: var(--gold);
+      stroke-width: 2.5;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .check svg path {
+      stroke-dasharray: 40;
+      stroke-dashoffset: 40;
+      animation: drawCheck 0.5s 0.7s ease forwards;
+    }
+
+    @keyframes drawCheck {
+      to { stroke-dashoffset: 0; }
+    }
+
+    .label {
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+      animation: fadeUp 0.9s 0.1s ease both;
+    }
+
+    h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 10vw, 5.5rem);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      color: var(--light);
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.9s 0.15s ease both;
+    }
+
+    h1 span {
+      color: var(--gold);
+    }
+
+    .divider {
+      width: 40px;
+      height: 1px;
+      background: var(--gold);
+      margin: 0 auto 1.5rem;
+      animation: expandLine 0.8s 0.4s ease both;
+    }
+
+    @keyframes expandLine {
+      from { width: 0; opacity: 0; }
+      to   { width: 40px; opacity: 1; }
+    }
+
+    p {
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+      animation: fadeUp 0.9s 0.2s ease both;
+    }
+
+    p strong {
+      color: var(--light);
+      font-weight: 500;
+    }
+
+    .discord-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: var(--gold);
+      color: var(--dark);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 1rem 2rem;
+      border-radius: 2px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      animation: fadeUp 0.9s 0.25s ease both;
+    }
+
+    .discord-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(229,185,78,0.25);
+      background: #f0cb6a;
+    }
+
+    .discord-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: var(--dark);
+      flex-shrink: 0;
+    }
+
+    .footer-note {
+      margin-top: 2.5rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+      opacity: 0.6;
+      animation: fadeUp 0.9s 0.35s ease both;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="check">
+      <svg viewBox="0 0 24 24">
+        <path d="M5 13l4 4L19 7"/>
+      </svg>
+    </div>
+
+    <div class="label">Payment confirmed</div>
+    <h1>Welcome to<br><span>SuperPlex</span></h1>
+    <div class="divider"></div>
+
+    <p>
+      Your subscription is active. The next step is to<br>
+      <strong>join our Discord server</strong> — that's where you'll find<br>
+      your login credentials and get set up.
+    </p>
+
+    <a href="https://discord.gg/6ck89wgq2Z" class="discord-btn" target="_blank" rel="noopener">
+      <!-- Discord logo -->
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20.317 4.492c-1.53-.69-3.17-1.2-4.885-1.49a.075.075 0 0 0-.079.036c-.21.369-.444.85-.608 1.23a18.566 18.566 0 0 0-5.487 0 12.36 12.36 0 0 0-.617-1.23A.077.077 0 0 0 8.562 3c-1.714.29-3.354.8-4.885 1.491a.07.07 0 0 0-.032.027C.533 9.093-.32 13.555.099 17.961a.08.08 0 0 0 .031.055 20.03 20.03 0 0 0 5.993 2.98.078.078 0 0 0 .084-.026 13.83 13.83 0 0 0 1.226-1.963.074.074 0 0 0-.041-.104 13.201 13.201 0 0 1-1.872-.878.075.075 0 0 1-.008-.125c.126-.093.252-.19.372-.287a.075.075 0 0 1 .078-.01c3.927 1.764 8.18 1.764 12.061 0a.075.075 0 0 1 .079.009c.12.098.245.195.372.288a.075.075 0 0 1-.006.125c-.598.344-1.22.635-1.873.877a.075.075 0 0 0-.041.105c.36.687.772 1.341 1.225 1.962a.077.077 0 0 0 .084.028 19.963 19.963 0 0 0 6.002-2.981.076.076 0 0 0 .032-.054c.5-5.094-.838-9.52-3.549-13.442a.06.06 0 0 0-.031-.028zM8.02 15.278c-1.182 0-2.157-1.069-2.157-2.38 0-1.312.956-2.38 2.157-2.38 1.21 0 2.176 1.077 2.157 2.38 0 1.312-.956 2.38-2.157 2.38zm7.975 0c-1.183 0-2.157-1.069-2.157-2.38 0-1.312.955-2.38 2.157-2.38 1.21 0 2.176 1.077 2.157 2.38 0 1.312-.946 2.38-2.157 2.38z"/>
+      </svg>
+      Join the Discord
+    </a>
+
+    <div class="footer-note">Need help? Reach out in the Discord server after joining.</div>
+  </div>
+</body>
+</html>
