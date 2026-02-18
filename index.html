@@ -80,9 +80,7 @@
     .plus-perks li::before{content:'—';color:var(--gold);flex-shrink:0;}
     .plus-right{padding:3.5rem;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:1.2rem;}
     @media(max-width:680px){.plus-right{padding:2.5rem;}}
-    .paypal-submit{display:block;width:100%;text-align:center;padding:1.1rem;background:var(--gold);color:#0a0800;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.9rem;letter-spacing:.18em;text-transform:uppercase;border:none;cursor:pointer;transition:filter .2s,transform .15s;}
-    .paypal-submit:hover{filter:brightness(1.1);transform:translateY(-1px);}
-    .paypal-fine{font-size:.72rem;color:var(--muted);text-align:center;line-height:1.7;}
+.paypal-fine{font-size:.72rem;color:var(--muted);text-align:center;line-height:1.7;}
     .steps{display:flex;flex-direction:column;}
     .step-row{display:grid;grid-template-columns:4rem 1fr;gap:2rem;padding:2.5rem 0;border-bottom:1px solid var(--border);}
     .step-row:first-child{border-top:1px solid var(--border);}
@@ -219,14 +217,26 @@
       </ul>
     </div>
     <div class="plus-right">
-      <form style="width:100%;display:flex;flex-direction:column;gap:.8rem;" action="https://www.paypal.com/donate" method="post" target="_top">
-        <input type="hidden" name="business" value="CWVAEF223XYTL"/>
-        <input type="hidden" name="amount" value="5"/>
-        <input type="hidden" name="no_recurring" value="0"/>
-        <input type="hidden" name="item_name" value="SuperPlex+"/>
-        <input type="hidden" name="currency_code" value="AUD"/>
-        <button type="submit" class="paypal-submit">Subscribe — $5 / month</button>
-      </form>
+      <div id="paypal-button-container-P-93Y35644EL000790VNGLE5WA"></div>
+      <script src="https://www.paypal.com/sdk/js?client-id=Aaz56dOburnAf4-HF6SbHX6zMz_hgyOob9UMxiN78AexMUHULRlgR2k53CNmMV-a_NRpz0mhOBkQvrvg&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
+      <script>
+        paypal.Buttons({
+            style: {
+                shape: 'pill',
+                color: 'gold',
+                layout: 'vertical',
+                label: 'subscribe'
+            },
+            createSubscription: function(data, actions) {
+              return actions.subscription.create({
+                plan_id: 'P-93Y35644EL000790VNGLE5WA'
+              });
+            },
+            onApprove: function(data, actions) {
+              alert(data.subscriptionID);
+            }
+        }).render('#paypal-button-container-P-93Y35644EL000790VNGLE5WA');
+      </script>
       <p class="paypal-fine">Secure payment via PayPal. Toggle recurring at checkout. After paying, message us — your account activates within 24 hours.</p>
     </div>
   </div>
