@@ -1,220 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Welcome to SuperPlex</title>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <meta name="description" content="You're in. Welcome to SuperPlex.">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,800;0,900;1,800;1,900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root { --gold:#f0b429; --muted:rgba(255,255,255,0.45); --border:rgba(255,255,255,0.1); }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{font-family:'Barlow',sans-serif;background:#000;color:#fff;overflow-x:hidden;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column;}
 
-    :root {
-      --gold: #e5b94e;
-      --dark: #0a0a0f;
-      --mid: #13131a;
-      --light: #f0ece4;
-      --muted: #6b6b80;
-    }
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 2rem;background:rgba(0,0,0,0.85);backdrop-filter:blur(10px);}
+    .logo{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;font-size:1.7rem;letter-spacing:.05em;text-transform:uppercase;text-decoration:none;color:#fff;}
+    .logo span{color:var(--gold);}
 
-    body {
-      background-color: var(--dark);
-      color: var(--light);
-      font-family: 'Inter', sans-serif;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
+    .poster-wall{position:fixed;inset:0;z-index:1;overflow:hidden;display:grid;grid-template-columns:repeat(10,1fr);grid-template-rows:repeat(5,1fr);gap:8px;opacity:0.2;}
+    .poster-wall::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 80% at 50% 50%,transparent 10%,rgba(0,0,0,0.6) 45%,rgba(0,0,0,0.92) 80%);pointer-events:none;z-index:2;}
+    .poster{width:100%;height:100%;object-fit:cover;border-radius:2px;transition:opacity 0.6s ease-in-out,transform 0.6s ease-in-out;}
+    .poster.fade-out{opacity:0;transform:scale(0.95);}
+    @keyframes posterFadeIn{from{opacity:0;transform:scale(0.9);}to{opacity:1;transform:scale(1);}}
 
-    /* Atmospheric background */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(229,185,78,0.08) 0%, transparent 70%),
-        radial-gradient(ellipse 40% 40% at 80% 80%, rgba(229,185,78,0.04) 0%, transparent 60%);
-      pointer-events: none;
-    }
+    .main{position:relative;z-index:10;flex:1;display:flex;align-items:center;justify-content:center;padding:8rem 2rem 4rem;}
+    .card{max-width:560px;width:100%;text-align:center;}
 
-    /* Grain texture */
-    body::after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      opacity: 0.025;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-      pointer-events: none;
-    }
+    .eyebrow{display:block;font-size:.65rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:1.2rem;opacity:0;animation:fadeUp .8s .1s forwards;}
+    h1{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;font-size:clamp(4rem,13vw,7rem);line-height:.88;text-transform:uppercase;letter-spacing:.02em;margin-bottom:1.5rem;opacity:0;animation:fadeUp .8s .2s forwards;}
+    h1 span{color:var(--gold);}
+    .divider{width:40px;height:2px;background:var(--gold);margin:0 auto 1.8rem;opacity:0;animation:expandLine .8s .3s forwards;}
+    @keyframes expandLine{from{width:0;opacity:0;}to{width:40px;opacity:1;}}
+    .lead{font-size:1rem;color:var(--muted);font-weight:300;line-height:1.75;max-width:400px;margin:0 auto 2.5rem;opacity:0;animation:fadeUp .8s .35s forwards;}
+    .lead strong{color:#fff;font-weight:500;}
 
-    .container {
-      position: relative;
-      text-align: center;
-      padding: 2rem;
-      max-width: 560px;
-      width: 100%;
-      animation: fadeUp 0.9s ease both;
-    }
+    .discord-btn{display:inline-flex;align-items:center;gap:.8rem;padding:1rem 2.2rem;background:var(--gold);color:#0a0800;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.9rem;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;transition:filter .2s,transform .15s;opacity:0;animation:fadeUp .8s .45s forwards;}
+    .discord-btn:hover{filter:brightness(1.1);transform:translateY(-1px);}
+    .discord-btn svg{width:20px;height:20px;fill:#0a0800;flex-shrink:0;}
 
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+    .fine{margin-top:1.5rem;font-size:.72rem;color:var(--muted);line-height:1.7;opacity:0;animation:fadeUp .8s .55s forwards;}
 
-    .check {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      border: 2px solid var(--gold);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 2rem;
-      animation: popIn 0.6s 0.3s cubic-bezier(0.34,1.56,0.64,1) both;
-    }
+    footer{position:relative;z-index:10;border-top:1px solid var(--border);padding:2.5rem 2rem;text-align:center;}
+    .footer-logo{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;font-size:1.2rem;text-transform:uppercase;letter-spacing:.06em;color:rgba(255,255,255,.25);margin-bottom:.75rem;}
+    .footer-logo span{color:rgba(240,180,41,.4);}
+    footer p{font-size:.7rem;letter-spacing:.1em;color:rgba(255,255,255,.18);text-transform:uppercase;}
+    footer a{color:rgba(240,180,41,.5);text-decoration:none;}
 
-    @keyframes popIn {
-      from { opacity: 0; transform: scale(0.5); }
-      to   { opacity: 1; transform: scale(1); }
-    }
-
-    .check svg {
-      width: 28px;
-      height: 28px;
-      stroke: var(--gold);
-      stroke-width: 2.5;
-      fill: none;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    .check svg path {
-      stroke-dasharray: 40;
-      stroke-dashoffset: 40;
-      animation: drawCheck 0.5s 0.7s ease forwards;
-    }
-
-    @keyframes drawCheck {
-      to { stroke-dashoffset: 0; }
-    }
-
-    .label {
-      font-size: 0.7rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 0.75rem;
-      animation: fadeUp 0.9s 0.1s ease both;
-    }
-
-    h1 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(3rem, 10vw, 5.5rem);
-      line-height: 0.95;
-      letter-spacing: 0.02em;
-      color: var(--light);
-      margin-bottom: 1.5rem;
-      animation: fadeUp 0.9s 0.15s ease both;
-    }
-
-    h1 span {
-      color: var(--gold);
-    }
-
-    .divider {
-      width: 40px;
-      height: 1px;
-      background: var(--gold);
-      margin: 0 auto 1.5rem;
-      animation: expandLine 0.8s 0.4s ease both;
-    }
-
-    @keyframes expandLine {
-      from { width: 0; opacity: 0; }
-      to   { width: 40px; opacity: 1; }
-    }
-
-    p {
-      font-size: 0.95rem;
-      font-weight: 300;
-      color: var(--muted);
-      line-height: 1.75;
-      margin-bottom: 2.5rem;
-      animation: fadeUp 0.9s 0.2s ease both;
-    }
-
-    p strong {
-      color: var(--light);
-      font-weight: 500;
-    }
-
-    .discord-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.75rem;
-      background: var(--gold);
-      color: var(--dark);
-      text-decoration: none;
-      font-size: 0.85rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 1rem 2rem;
-      border-radius: 2px;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-      animation: fadeUp 0.9s 0.25s ease both;
-    }
-
-    .discord-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 32px rgba(229,185,78,0.25);
-      background: #f0cb6a;
-    }
-
-    .discord-btn svg {
-      width: 20px;
-      height: 20px;
-      fill: var(--dark);
-      flex-shrink: 0;
-    }
-
-    .footer-note {
-      margin-top: 2.5rem;
-      font-size: 0.75rem;
-      color: var(--muted);
-      opacity: 0.6;
-      animation: fadeUp 0.9s 0.35s ease both;
-    }
+    @keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+    ::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:#000;}::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);}
+    @media(max-width:700px){.poster-wall{grid-template-columns:repeat(6,1fr);grid-template-rows:repeat(8,1fr);}}
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="check">
-      <svg viewBox="0 0 24 24">
-        <path d="M5 13l4 4L19 7"/>
-      </svg>
-    </div>
 
-    <div class="label">Payment confirmed</div>
+<nav>
+  <a href="https://superplex.org" class="logo">Super<span>Plex</span></a>
+</nav>
+
+<div class="poster-wall" id="posterWall"></div>
+
+<main class="main">
+  <div class="card">
+    <span class="eyebrow">Payment confirmed</span>
     <h1>Welcome to<br><span>SuperPlex</span></h1>
     <div class="divider"></div>
-
-    <p>
-      Your subscription is active. The next step is to<br>
-      <strong>join our Discord server</strong> — that's where you'll find<br>
-      your login credentials and get set up.
-    </p>
+    <p class="lead">You're in. Join our Discord server below — that's where you'll receive your <strong>login credentials</strong> and get everything set up.</p>
 
     <a href="https://discord.gg/6ck89wgq2Z" class="discord-btn" target="_blank" rel="noopener">
-      <!-- Discord logo -->
       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path d="M20.317 4.492c-1.53-.69-3.17-1.2-4.885-1.49a.075.075 0 0 0-.079.036c-.21.369-.444.85-.608 1.23a18.566 18.566 0 0 0-5.487 0 12.36 12.36 0 0 0-.617-1.23A.077.077 0 0 0 8.562 3c-1.714.29-3.354.8-4.885 1.491a.07.07 0 0 0-.032.027C.533 9.093-.32 13.555.099 17.961a.08.08 0 0 0 .031.055 20.03 20.03 0 0 0 5.993 2.98.078.078 0 0 0 .084-.026 13.83 13.83 0 0 0 1.226-1.963.074.074 0 0 0-.041-.104 13.201 13.201 0 0 1-1.872-.878.075.075 0 0 1-.008-.125c.126-.093.252-.19.372-.287a.075.075 0 0 1 .078-.01c3.927 1.764 8.18 1.764 12.061 0a.075.075 0 0 1 .079.009c.12.098.245.195.372.288a.075.075 0 0 1-.006.125c-.598.344-1.22.635-1.873.877a.075.075 0 0 0-.041.105c.36.687.772 1.341 1.225 1.962a.077.077 0 0 0 .084.028 19.963 19.963 0 0 0 6.002-2.981.076.076 0 0 0 .032-.054c.5-5.094-.838-9.52-3.549-13.442a.06.06 0 0 0-.031-.028zM8.02 15.278c-1.182 0-2.157-1.069-2.157-2.38 0-1.312.956-2.38 2.157-2.38 1.21 0 2.176 1.077 2.157 2.38 0 1.312-.956 2.38-2.157 2.38zm7.975 0c-1.183 0-2.157-1.069-2.157-2.38 0-1.312.955-2.38 2.157-2.38 1.21 0 2.176 1.077 2.157 2.38 0 1.312-.946 2.38-2.157 2.38z"/>
       </svg>
       Join the Discord
     </a>
 
-    <div class="footer-note">Need help? Reach out in the Discord server after joining.</div>
+    <p class="fine">Need help? Reach out in the Discord after joining and we'll get you sorted.</p>
   </div>
+</main>
+
+<footer>
+  <div class="footer-logo">Super<span>Plex</span></div>
+  <p><a href="https://superplex.org">superplex.org</a> &nbsp;·&nbsp; <a href="https://requests.superplex.org">requests.superplex.org</a></p>
+</footer>
+
+<script>
+const IMAGE_BASE = 'https://image.tmdb.org/t/p/w500';
+const MOVIE_POSTERS = [
+  '/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg','/qNBAXBIQlnOThrVvA6mA2B5ggV6.jpg','/1E5baAaEse26fej7uHcjOgEE2t2.jpg',
+  '/r2J02Z2OpNTctfOSN1Ydgii51I3.jpg','/tVxDe01Zy3kZqaZRNiXFGDICdZk.jpg','/vZloFAK7NmvMGKE7VkF5UHaz0I.jpg',
+  '/ctMserH8g2SeOAnCw5gFjdQF8mo.jpg','/d9nBoowhjiiYc4FBNtQkPY7c11H.jpg','/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg',
+  '/5ScPNT6fHtfYJeWBajZciPV3hEL.jpg','/sv1xJUazXeYqALzczSZ3O6nkH75.jpg','/rktDFPbfHfUbArZ6OOOKsXcv0Bm.jpg',
+  '/8cdWjvZQUExUUTzyp4t6EDMubfO.jpg','/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg','/39wmItIWsg5sZMyRUHLkWBcuVCM.jpg',
+  '/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg','/lxD5ak7BOoinRNehOCA85CQ8ubr.jpg','/rCzpDGLbOoPwLjy3OAm5NUPOTrC.jpg',
+  '/6oom5QYQ2yQTMJIbnvbkBL9cHo6.jpg','/3bhkrj58Vtu7enYsRolD1fZdja1.jpg','/9cqNxx0GxF0bflZmeSMuL5tnGzr.jpg',
+  '/xvx4Yhf0DVH8G4LzNISpMfFBDy2.jpg','/vB8o2p4ETnrfiWEgVxHmHWP9yRl.jpg','/bQXAqRx2Fgc46uCVWgoPz5L5Dtr.jpg',
+  '/ngl2FKBlU4fhbdsrtdom9LVLBXw.jpg','/dc1K3B0MtgfBAhdHUaYiVf3nsJj.jpg','/lMyWY0MB01JSufVY0bKLhfKf8KS.jpg',
+  '/rSPw7tgCH9c6NqICZef0kZjFOQ5.jpg','/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg','/nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg',
+  '/e7Jvsry47JJQruuezjU2X1Z6J77.jpg','/xDMIl84Qo5Tsu62c9DGWhmPI67A.jpg','/uUiId0135qbqvmOcbJjkSHwQuxH.jpg',
+  '/kqjL17yufvn9OVLyXYpvtyrFfak.jpg','/nMKdUUepR0i5zn0y1T4CsSB5chy.jpg','/vL5LR6WdxWPjLPFRLe133jXWsh5.jpg',
+  '/iIMsoYRHn5hjhcG4O1vkNa7ooEn.jpg','/tKMlZgss1qWt3W1a1LYCKjhO8NE.jpg','/xS8JgXLKN4HUGJiJKQVLLnlKBx2.jpg',
+  '/uDgy6hyPd82kOHh6I95FLtLnj6p.jpg','/1BIoJGKbXjdFDAqUEiA2VHqkK1Z.jpg','/ApiBzeaa95TNYliSbQ8pJv4Fje7.jpg',
+];
+
+let allPosters = [], currentIndex = 0;
+
+function shuffleArray(array) {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
+
+function loadPosters() {
+  allPosters = shuffleArray(MOVIE_POSTERS.map(p => IMAGE_BASE + p));
+  const wall = document.getElementById('posterWall');
+  if (!wall) return;
+  wall.innerHTML = '';
+  for (let i = 0; i < 50; i++) {
+    const img = document.createElement('img');
+    img.className = 'poster';
+    img.src = allPosters[i % allPosters.length];
+    img.alt = '';
+    img.loading = i < 20 ? 'eager' : 'lazy';
+    img.style.animation = `posterFadeIn 0.8s ease-in ${i * 0.02}s forwards`;
+    img.onerror = function() { this.style.visibility = 'hidden'; };
+    wall.appendChild(img);
+  }
+  setInterval(rotatePoster, 2500);
+}
+
+function rotatePoster() {
+  const wall = document.getElementById('posterWall');
+  if (!wall || !wall.children.length) return;
+  const randomSlot = Math.floor(Math.random() * wall.children.length);
+  const img = wall.children[randomSlot];
+  currentIndex = (currentIndex + 1) % allPosters.length;
+  img.classList.add('fade-out');
+  setTimeout(() => { img.src = allPosters[currentIndex]; img.classList.remove('fade-out'); }, 600);
+}
+
+document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', loadPosters) : loadPosters();
+</script>
+
 </body>
 </html>
