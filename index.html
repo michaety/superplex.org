@@ -51,8 +51,8 @@
     .section{max-width:960px;margin:0 auto;padding:7rem 2rem;}
     .section.wide{max-width:1100px;}.section.narrow{max-width:680px;}
     .stag{display:block;font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:1.2rem;}
-    .section h2,.seerr-section h2{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;font-size:clamp(2.5rem,6vw,4rem);text-transform:uppercase;line-height:.95;margin-bottom:1.5rem;letter-spacing:.02em;}
-    .section h2 span,.seerr-section h2 span{color:var(--gold);}
+    .section h2{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;font-size:clamp(2.5rem,6vw,4rem);text-transform:uppercase;line-height:.95;margin-bottom:1.5rem;letter-spacing:.02em;}
+    .section h2 span{color:var(--gold);}
     .slead{color:var(--muted);font-weight:300;font-size:.98rem;line-height:1.8;margin-bottom:3rem;}
 
     /* FEATURES */
@@ -117,9 +117,6 @@
     .carousel-card:hover .carousel-card-title{opacity:1;transform:translateY(0);}
     .carousel-badge{position:absolute;top:.5rem;left:.5rem;background:var(--gold);color:#0a0800;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .5rem;}
     @keyframes shimmer{0%,100%{opacity:.05;}50%{opacity:.12;}}
-    @keyframes carousel-scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
-    .carousel-track.looping{transition:none;animation:carousel-scroll 38s linear infinite;}
-    .carousel-track-wrap:hover .carousel-track.looping{animation-play-state:paused;}
 
     /* ===== OVERSEERR SECTION ===== */
     .seerr-section{max-width:960px;margin:0 auto;padding:7rem 2rem;}
@@ -139,9 +136,11 @@
     @media(max-width:650px){.ss-layout{flex-direction:column;gap:1.5rem;}}
     .ss-phone-wrap{flex-shrink:0;width:180px;position:relative;border-radius:12px;overflow:hidden;}
     @media(max-width:650px){.ss-phone-wrap{width:140px;}}
-    .ss-phone-wrap::before,.ss-phone-wrap::after{content:'';position:absolute;left:0;right:0;height:60px;z-index:2;pointer-events:none;}
+    .ss-phone-wrap::before,.ss-phone-wrap::after{content:'';position:absolute;left:0;right:0;height:40px;z-index:2;pointer-events:none;}
     .ss-phone-wrap::before{top:0;background:linear-gradient(to bottom,#0a0a0a,transparent);}
     .ss-phone-wrap::after{bottom:0;background:linear-gradient(to top,#0a0a0a,transparent);}
+    #demo-panel-3 .ss-phone-wrap::before{height:20px;}
+    #demo-panel-3 .ss-phone-wrap::after{height:20px;}
     .ss-img{width:100%;display:block;border-radius:12px;box-shadow:0 8px 40px rgba(0,0,0,.6);}
     .ss-caption{flex:1;}
     .ss-caption h4{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.1rem;letter-spacing:.07em;text-transform:uppercase;margin-bottom:.6rem;}
@@ -239,7 +238,7 @@
     <a href="#features">Features</a>
     <a href="#setup">Get Started</a>
     <a href="#requests">Seerr</a>
-    <a href="#plus" class="nav-btn">Subscribe</a>
+    <a href="#plus" class="nav-btn">Why SuperPlex</a>
   </div>
 </nav>
 
@@ -291,6 +290,10 @@
       <div>
         <span class="stag">Just added</span>
         <h2>New to <span>SuperPlex</span></h2>
+      </div>
+      <div class="carousel-nav-btns">
+        <button class="carousel-btn" onclick="slideCarousel('new', -1)">‹</button>
+        <button class="carousel-btn" onclick="slideCarousel('new', 1)">›</button>
       </div>
     </div>
     <div class="carousel-track-wrap" style="margin:0 -2rem;">
@@ -360,7 +363,7 @@
           onApprove:function(data,actions){alert(data.subscriptionID);}
         }).render('#paypal-button-container-P-93Y35644EL000790VNGLE5WA');
       </script>
-      <p class="paypal-fine">Secure payment via PayPal. After subscribing, you'll be redirected to a page with your Discord invite link to get set up.</p>
+      <p class="paypal-fine">Secure payment via PayPal. After subscribing, check your email for a welcome link to get set up.</p>
     </div>
   </div>
 </section>
@@ -390,8 +393,8 @@
         <div class="step-num">02</div>
       </div>
       <div class="step-new-right">
-        <h3>Join Discord &amp; get approved</h3>
-        <p>After payment you'll be redirected to a page where you'll find the Discord invite link. Join the server and once approved, your login credentials will be sent to you there.</p>
+        <h3>Join the Discord &amp; get your login</h3>
+        <p>After subscribing via PayPal you'll receive a Discord invite link. Join the server — once approved, your login credentials will be sent through.</p>
       </div>
     </div>
 
@@ -402,7 +405,7 @@
       </div>
       <div class="step-new-right">
         <h3>Sign in &amp; start watching</h3>
-        <p>Download the Plex app on your device, sign in with the credentials from Discord, and hit play. It's that simple.</p>
+        <p>Download the Plex app on your device, sign in with the credentials provided in Discord, and hit play. It's that simple.</p>
         <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1rem;">
           <a href="https://apps.apple.com/app/plex/id383457673" style="display:flex;align-items:center;gap:.7rem;border:1px solid var(--border);padding:.7rem 1.2rem;color:#fff;text-decoration:none;font-size:.82rem;transition:border-color .2s;" target="_blank"><span>🍎</span><span>iOS</span></a>
           <a href="https://play.google.com/store/apps/details?id=com.plexapp.android" style="display:flex;align-items:center;gap:.7rem;border:1px solid var(--border);padding:.7rem 1.2rem;color:#fff;text-decoration:none;font-size:.82rem;transition:border-color .2s;" target="_blank"><span>🤖</span><span>Android</span></a>
@@ -475,7 +478,7 @@
           <div class="ss-caption">
             <div class="os-step-num" style="margin-bottom:1rem;">1</div>
             <h4>Open Seerr &amp; sign in</h4>
-            <p>Visit <a href="https://requests.superplex.org" target="_blank" style="color:var(--gold);">requests.superplex.org</a> and press the "Sign in with Plex" button, using the login details in the Discord server.</p>
+            <p>Visit <a href="https://requests.superplex.org" target="_blank" style="color:var(--gold);">requests.superplex.org</a> and sign in using the credentials provided in your Discord approval message.</p>
           </div>
         </div>
       </div>
@@ -515,7 +518,7 @@
             <img src="ss-install.png" class="ss-img" alt="Install Seerr as app"/>
           </div>
           <div class="ss-caption">
-            <div class="os-step-num" style="margin-bottom:1rem;">4</div>
+            <div class="os-step-num" style="margin-bottom:1rem;">📲</div>
             <h4>Save it as an app</h4>
             <p>Android automatically prompts you to install Seerr as an app — just tap <strong style="color:var(--gold);">Install</strong> when you see the banner. On iPhone, tap the Share button in Safari and choose <strong style="color:var(--gold);">Add to Home Screen</strong>. Works like a native app from then on.</p>
           </div>
@@ -528,7 +531,7 @@
   <!-- CTA + Add to Home Screen merged -->
   <div style="margin-top:2.5rem;display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);" class="os-bottom-grid">
     <div style="background:#000;padding:2rem;">
-      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem;color:var(--gold);">Open in your browser</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem;color:var(--gold);">Open on your browser</div>
       <a href="https://requests.superplex.org" class="btn-primary" target="_blank" style="display:inline-block;margin-bottom:1rem;">Open Seerr →</a>
       <p style="font-size:.8rem;color:var(--muted);line-height:1.6;">Check if content is already in the library before requesting — it might already be there!</p>
     </div>
@@ -611,6 +614,11 @@ const TAUTULLI_KEY  = 'bfdd55689d62470fa691af6776b77428';
 const PLEX_IMG_BASE = TAUTULLI_URL + '/api/v2?apikey=' + TAUTULLI_KEY + '&cmd=pms_image_proxy&img=';
 
 let carouselItems = [];
+let carouselOffset = 0;
+
+function getCardWidth(){
+  return window.innerWidth <= 600 ? 132 : 172;
+}
 
 function processRecentlyAdded(data) {
   const seen  = new Set();
@@ -646,10 +654,9 @@ function buildCarouselFromItems(items) {
   const track = document.getElementById('carousel-new');
   if (!track) return;
   track.innerHTML = '';
-  track.style.padding = '0';
-  carouselItems = items;
-  function makeCard(item) {
-    const card = document.createElement('div');
+  carouselItems   = items;
+  items.forEach((item) => {
+    const card   = document.createElement('div');
     card.className = 'carousel-card';
     const badge  = item.type === 'movie' ? '🎬 Movie' : '📺 Show';
     const imgSrc = PLEX_IMG_BASE + encodeURIComponent(item.thumbPath) + '&width=300&height=450&fallback=poster';
@@ -659,12 +666,8 @@ function buildCarouselFromItems(items) {
       <div class="carousel-card-overlay"></div>
       <div class="carousel-card-title">${item.title}</div>
     `;
-    return card;
-  }
-  // Build two copies for seamless infinite loop
-  items.forEach(item => track.appendChild(makeCard(item)));
-  items.forEach(item => track.appendChild(makeCard(item)));
-  track.classList.add('looping');
+    track.appendChild(card);
+  });
 }
 
 function showCarouselSkeleton() {
@@ -682,7 +685,7 @@ function showCarouselSkeleton() {
 async function loadCarouselFromTautulli() {
   showCarouselSkeleton();
   try {
-    const url  = TAUTULLI_URL + '/api/v2?apikey=' + TAUTULLI_KEY + '&cmd=get_recently_added&count=60';
+    const url  = TAUTULLI_URL + '/api/v2?apikey=' + TAUTULLI_KEY + '&cmd=get_recently_added&count=30';
     const res  = await fetch(url);
     const json = await res.json();
     const raw  = json?.response?.data?.recently_added;
@@ -693,6 +696,15 @@ async function loadCarouselFromTautulli() {
     const track = document.getElementById('carousel-new');
     if (track) track.innerHTML = '';
   }
+}
+
+function slideCarousel(id, dir) {
+  const track = document.getElementById('carousel-new');
+  if (!track || !carouselItems.length) return;
+  const visible   = Math.floor(track.parentElement.offsetWidth / getCardWidth());
+  const maxOffset = Math.max(0, carouselItems.length - visible);
+  carouselOffset  = Math.max(0, Math.min(maxOffset, carouselOffset + dir * 3));
+  track.style.transform = `translateX(-${carouselOffset * getCardWidth()}px)`;
 }
 
 function buildAllCarousels() {

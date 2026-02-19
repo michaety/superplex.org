@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SuperPlex — Important Update</title>
+  <meta name="description" content="SuperPlex is changing. Here's everything you need to know.">
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,800;0,900;1,800;1,900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --gold: #f0b429;
+      --gold-dim: rgba(240,180,41,0.15);
+      --red: #e03030;
+      --muted: rgba(255,255,255,0.45);
+      --border: rgba(255,255,255,0.08);
+      --border-gold: rgba(240,180,41,0.25);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: #060606;
+      color: #fff;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── TICKER ── */
+    .ticker-wrap {
+      background: var(--gold);
+      overflow: hidden;
+      white-space: nowrap;
+      padding: .45rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 300;
+    }
+    .ticker-track {
+      display: inline-flex;
+      gap: 0;
+      animation: ticker 28s linear infinite;
+    }
+    .ticker-track span {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: .75rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: #0a0800;
+      padding: 0 3rem;
+    }
+    .ticker-track span::after { content: '·'; margin-left: 3rem; }
+    @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 2rem;
+      border-bottom: 1px solid var(--border);
+      background: rgba(6,6,6,0.95);
+      backdrop-filter: blur(10px);
+    }
+    .logo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-style: italic;
+      font-size: 1.5rem;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: #fff;
+    }
+    .logo span { color: var(--gold); }
+    .nav-tag {
+      font-size: .65rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--red);
+      font-weight: 600;
+      border: 1px solid rgba(224,48,48,.3);
+      padding: .3rem .7rem;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 6rem 2rem 5rem;
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 300px;
+      background: radial-gradient(ellipse at center, rgba(240,180,41,.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      font-size: .65rem;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--red);
+      font-weight: 600;
+      margin-bottom: 1.8rem;
+      opacity: 0;
+      animation: fadeUp .7s .1s forwards;
+    }
+    .eyebrow-dot {
+      width: 6px; height: 6px;
+      background: var(--red);
+      border-radius: 50%;
+      animation: pulse-red 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse-red {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: .4; transform: scale(.7); }
+    }
+    .hero h1 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-style: italic;
+      font-size: clamp(3.5rem, 10vw, 7.5rem);
+      line-height: .88;
+      text-transform: uppercase;
+      letter-spacing: .02em;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp .7s .2s forwards;
+    }
+    .hero h1 em { color: var(--gold); font-style: italic; }
+    .hero h1 .strike {
+      position: relative;
+      color: rgba(255,255,255,.25);
+    }
+    .hero h1 .strike::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0;
+      top: 50%; height: 4px;
+      background: var(--red);
+      transform: rotate(-2deg);
+    }
+    .hero-lead {
+      font-size: 1.05rem;
+      color: var(--muted);
+      font-weight: 300;
+      line-height: 1.8;
+      max-width: 560px;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeUp .7s .35s forwards;
+    }
+    .hero-lead strong { color: #fff; font-weight: 500; }
+
+    /* ── COUNTDOWN ── */
+    .deadline-bar {
+      display: inline-flex;
+      align-items: center;
+      gap: 1.5rem;
+      border: 1px solid var(--border-gold);
+      padding: 1.2rem 1.8rem;
+      background: rgba(240,180,41,.04);
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp .7s .45s forwards;
+    }
+    .deadline-label {
+      font-size: .62rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 700;
+    }
+    .countdown {
+      display: flex;
+      gap: 1rem;
+    }
+    .cd-unit {
+      text-align: center;
+    }
+    .cd-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 2rem;
+      line-height: 1;
+      color: var(--gold);
+      display: block;
+    }
+    .cd-label {
+      font-size: .58rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: block;
+      margin-top: .1rem;
+    }
+    .cd-sep {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 1.8rem;
+      color: rgba(240,180,41,.3);
+      align-self: flex-start;
+      padding-top: .1rem;
+    }
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp .7s .55s forwards;
+    }
+
+    /* ── BUTTONS ── */
+    .btn-primary {
+      padding: .9rem 2rem;
+      background: var(--gold);
+      color: #0a0800;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: .85rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      display: inline-block;
+      transition: filter .2s, transform .15s;
+    }
+    .btn-primary:hover { filter: brightness(1.1); transform: translateY(-1px); }
+    .btn-ghost {
+      padding: .9rem 2rem;
+      background: transparent;
+      color: rgba(255,255,255,.6);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: .85rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      display: inline-block;
+      transition: border-color .2s, color .2s;
+    }
+    .btn-ghost:hover { border-color: rgba(255,255,255,.25); color: #fff; }
+
+    /* ── DIVIDER ── */
+    .rule { border: none; border-top: 1px solid var(--border); }
+
+    /* ── SECTION ── */
+    .section { max-width: 900px; margin: 0 auto; padding: 5rem 2rem; }
+    .stag {
+      display: block;
+      font-size: .62rem;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 700;
+      margin-bottom: 1.2rem;
+    }
+    .section h2 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-style: italic;
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      text-transform: uppercase;
+      line-height: .95;
+      margin-bottom: 1.5rem;
+      letter-spacing: .02em;
+    }
+    .section h2 span { color: var(--gold); }
+
+    /* ── WHAT'S CHANGING ── */
+    .change-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin-bottom: 2rem;
+    }
+    @media(max-width:600px) { .change-grid { grid-template-columns: 1fr; } }
+    .change-cell {
+      background: #060606;
+      padding: 2rem;
+    }
+    .change-cell.before { border-right: 1px solid var(--border); }
+    @media(max-width:600px) { .change-cell.before { border-right: none; border-bottom: 1px solid var(--border); } }
+    .change-head {
+      font-size: .62rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+    .change-head.was { color: rgba(255,255,255,.3); }
+    .change-head.now { color: var(--gold); }
+    .change-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: .8rem;
+    }
+    .change-list li {
+      font-size: .88rem;
+      color: var(--muted);
+      font-weight: 300;
+      line-height: 1.6;
+      display: flex;
+      gap: .8rem;
+      align-items: flex-start;
+    }
+    .change-list li .mark { flex-shrink: 0; margin-top: .1rem; }
+    .change-list.was li .mark { color: rgba(255,255,255,.2); }
+    .change-list.now li { color: rgba(255,255,255,.8); }
+    .change-list.now li .mark { color: var(--gold); }
+
+    /* ── WHY WE CHARGE ── */
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    @media(max-width:650px) { .why-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
+    .why-left p {
+      font-size: .9rem;
+      color: var(--muted);
+      font-weight: 300;
+      line-height: 1.85;
+      margin-bottom: 1.2rem;
+    }
+    .why-left p strong { color: #fff; font-weight: 500; }
+    .why-left p em { color: var(--gold); font-style: normal; font-weight: 500; }
+    .callout-box {
+      border-left: 2px solid var(--gold);
+      padding: 1rem 1.5rem;
+      background: var(--gold-dim);
+      font-size: .88rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,.7);
+      margin-top: 1.5rem;
+    }
+    .callout-box strong { color: #fff; }
+    .money-items {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+    .money-item {
+      display: flex;
+      gap: 1.2rem;
+      align-items: flex-start;
+      padding: 1.3rem;
+      border: 1px solid var(--border);
+      background: #0a0a0a;
+    }
+    .money-icon {
+      font-size: 1.4rem;
+      flex-shrink: 0;
+      width: 2.5rem;
+      text-align: center;
+    }
+    .money-item h4 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: .9rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: .3rem;
+    }
+    .money-item p {
+      font-size: .82rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── PRICING ── */
+    .price-wrap {
+      border: 1px solid var(--border-gold);
+      position: relative;
+      overflow: hidden;
+      background: #0a0a0a;
+    }
+    .price-wrap::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .price-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+    @media(max-width:600px) { .price-inner { grid-template-columns: 1fr; } }
+    .price-left {
+      padding: 3rem;
+      border-right: 1px solid var(--border);
+    }
+    @media(max-width:600px) { .price-left { border-right: none; border-bottom: 1px solid var(--border); padding: 2rem; } }
+    .price-right { padding: 3rem; display: flex; flex-direction: column; justify-content: center; }
+    @media(max-width:600px) { .price-right { padding: 2rem; } }
+    .price-big {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-style: italic;
+      font-size: 6rem;
+      line-height: 1;
+      color: var(--gold);
+    }
+    .price-big sup { font-size: 2.5rem; vertical-align: super; font-style: normal; }
+    .price-per {
+      font-size: .7rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: .4rem 0 1.5rem;
+    }
+    .price-perks {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: .7rem;
+      margin-bottom: 2rem;
+    }
+    .price-perks li {
+      display: flex;
+      gap: .8rem;
+      font-size: .87rem;
+      color: rgba(255,255,255,.75);
+      font-weight: 300;
+    }
+    .price-perks li::before { content: '—'; color: var(--gold); flex-shrink: 0; }
+    .vs-row {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      padding: 1rem 1.2rem;
+      border: 1px solid var(--border);
+      background: #060606;
+      margin-bottom: .8rem;
+    }
+    .vs-service {
+      flex: 1;
+      font-size: .78rem;
+      color: var(--muted);
+    }
+    .vs-price {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+    }
+    .vs-price.them { color: rgba(255,80,80,.7); text-decoration: line-through; }
+    .vs-price.us { color: var(--gold); }
+    .vs-note { font-size: .68rem; color: rgba(255,80,80,.5); }
+    .vs-note.good { color: rgba(100,200,100,.6); }
+
+    /* ── STEPS ── */
+    .steps-list {
+      display: flex;
+      flex-direction: column;
+    }
+    .step-row {
+      display: grid;
+      grid-template-columns: 3.5rem 1fr;
+      gap: 1.5rem;
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--border);
+      align-items: start;
+    }
+    .step-row:first-child { border-top: 1px solid var(--border); }
+    .step-n {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-style: italic;
+      font-size: 2.5rem;
+      line-height: 1;
+      color: rgba(255,255,255,.07);
+    }
+    .step-body h3 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      margin-bottom: .4rem;
+    }
+    .step-body p {
+      font-size: .87rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .step-body a { color: var(--gold); text-decoration: none; }
+    .step-body .sub-note {
+      margin-top: .6rem;
+      font-size: .78rem;
+      color: rgba(255,255,255,.3);
+    }
+
+    /* ── FAQ ── */
+    .faq-list { display: flex; flex-direction: column; }
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+    }
+    .faq-item:first-child { border-top: 1px solid var(--border); }
+    .faq-q {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.3rem 0;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      gap: 1rem;
+    }
+    .faq-q .arr {
+      font-size: 1.2rem;
+      color: var(--gold);
+      transition: transform .3s;
+      flex-shrink: 0;
+    }
+    .faq-item.open .faq-q .arr { transform: rotate(45deg); }
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .4s ease;
+    }
+    .faq-item.open .faq-a { max-height: 200px; }
+    .faq-a p {
+      font-size: .88rem;
+      color: var(--muted);
+      line-height: 1.75;
+      padding-bottom: 1.3rem;
+      font-weight: 300;
+    }
+    .faq-a p strong { color: #fff; font-weight: 500; }
+
+    /* ── FOOTER CTA ── */
+    .footer-cta {
+      text-align: center;
+      padding: 5rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .footer-cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(240,180,41,.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .footer-cta h2 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-style: italic;
+      font-size: clamp(2.5rem, 7vw, 5rem);
+      text-transform: uppercase;
+      line-height: .9;
+      margin-bottom: 1.2rem;
+    }
+    .footer-cta h2 span { color: var(--gold); }
+    .footer-cta p {
+      font-size: .92rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
+      font-weight: 300;
+    }
+    .footer-cta .fine {
+      margin-top: 1.2rem;
+      font-size: .72rem;
+      color: rgba(255,255,255,.2);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+    }
+    .footer-logo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-style: italic;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.2);
+      margin-bottom: .5rem;
+    }
+    .footer-logo span { color: rgba(240,180,41,.35); }
+    footer p { font-size: .68rem; letter-spacing: .1em; color: rgba(255,255,255,.15); text-transform: uppercase; }
+    footer a { color: rgba(240,180,41,.4); text-decoration: none; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: #000; }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,.1); }
+
+    @media(max-width:700px) {
+      .hero { padding: 4rem 1.5rem 3.5rem; }
+      .section { padding: 4rem 1.5rem; }
+      .price-left, .price-right { padding: 2rem 1.5rem; }
+    }
+  </style>
+  <style>
+    .pp-modal-overlay {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,.85);
+      backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity .3s;
+    }
+    .pp-modal-overlay.open { opacity: 1; pointer-events: auto; }
+    .pp-modal {
+      background: #0d0d0d;
+      border: 1px solid var(--border-gold);
+      padding: 2.5rem 2rem;
+      max-width: 420px;
+      width: calc(100% - 2rem);
+      position: relative;
+      transform: translateY(16px);
+      transition: transform .3s;
+    }
+    .pp-modal-overlay.open .pp-modal { transform: translateY(0); }
+    .pp-modal-close {
+      position: absolute; top: 1rem; right: 1.2rem;
+      background: none; border: none; color: rgba(255,255,255,.4);
+      font-size: 1.4rem; cursor: pointer; line-height: 1;
+    }
+    .pp-modal-close:hover { color: #fff; }
+    .pp-modal h3 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900; font-style: italic;
+      font-size: 1.6rem; text-transform: uppercase;
+      margin-bottom: .4rem;
+    }
+    .pp-modal h3 span { color: var(--gold); }
+    .pp-modal .pp-sub {
+      font-size: .82rem; color: rgba(255,255,255,.45);
+      line-height: 1.6; margin-bottom: 1.5rem;
+    }
+    .paypal-fine {
+      font-size: .72rem; color: rgba(255,255,255,.35);
+      text-align: center; line-height: 1.6; margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="https://superplex.org" class="logo">Super<span>Plex</span></a>
+  <div class="nav-tag">Important Update</div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">
+    <div class="eyebrow-dot"></div>
+    Action required by 6 March 2026
+  </div>
+  <h1>
+    <span class="strike">Free</span><br>
+    is <em>over.</em><br>
+    Here's what's<br>changing.
+  </h1>
+  <p class="hero-lead">
+    SuperPlex has been free for a long time. That's changing.
+    <strong>From 6 March 2026, access requires a subscription.</strong>
+    Here's everything you need to know — and why it's worth it.
+  </p>
+  <div class="deadline-bar">
+    <div class="deadline-label">Time remaining</div>
+    <div class="countdown">
+      <div class="cd-unit"><span class="cd-num" id="cd-d">07</span><span class="cd-label">Days</span></div>
+      <span class="cd-sep">:</span>
+      <div class="cd-unit"><span class="cd-num" id="cd-h">00</span><span class="cd-label">Hrs</span></div>
+      <span class="cd-sep">:</span>
+      <div class="cd-unit"><span class="cd-num" id="cd-m">00</span><span class="cd-label">Min</span></div>
+      <span class="cd-sep">:</span>
+      <div class="cd-unit"><span class="cd-num" id="cd-s">00</span><span class="cd-label">Sec</span></div>
+    </div>
+  </div>
+  <div class="hero-cta">
+    <a href="#" onclick="event.preventDefault();openPPModal()" class="btn-primary">Subscribe Now — $10/mo</a>
+    <a href="#what-changes" class="btn-ghost">See What's Changing ↓</a>
+  </div>
+</div>
+
+<hr class="rule"/>
+
+<!-- WHY WE CHARGE -->
+<section class="section">
+  <span class="stag">Why we charge</span>
+  <h2>SuperPlex used to be <span>Free.</span></h2>
+  <div class="why-grid">
+    <div class="why-left">
+      <p>For a long time, this was a passion project — shared freely with friends and family. But as the library grew to <em>16TB</em> across thousands of titles, so did the costs of running it.</p>
+      <p>Servers, hard drives, power bills, and bandwidth add up fast. The small monthly fee is what keeps everything online, fast, and growing — with <strong>no ads and no compromises.</strong></p>
+      <p>SuperPlex will <strong>never have ads.</strong> Your $10 is what makes that possible. Every dollar goes directly into storage and infrastructure — nothing else.</p>
+      <div class="callout-box">
+        Netflix charges <strong>$18–$23/month</strong> and still shows you ads. SuperPlex is <strong style="color:var(--gold);">$10/month</strong>, ad-free, forever.
+      </div>
+    </div>
+    <div class="money-items">
+      <div class="money-item">
+        <div class="money-icon">🖥️</div>
+        <div>
+          <h4>Server &amp; Power</h4>
+          <p>Running 24/7 so you can watch at 3am without a buffer wheel.</p>
+        </div>
+      </div>
+      <div class="money-item">
+        <div class="money-icon">💾</div>
+        <div>
+          <h4>Storage Expansion</h4>
+          <p>More hard drives means more movies, more shows, more everything.</p>
+        </div>
+      </div>
+      <div class="money-item">
+        <div class="money-icon">🌐</div>
+        <div>
+          <h4>Bandwidth &amp; Uptime</h4>
+          <p>Fast streams for everyone, everywhere, at the same time.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule"/>
+
+<hr class="rule"/>
+
+<!-- DISCORD -->
+<section class="section">
+  <span class="stag">Community</span>
+  <h2>Join the <span>Discord.</span></h2>
+  <div style="border:1px solid var(--border-gold);background:#0a0a0a;position:relative;overflow:hidden;">
+    <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);" class="discord-grid">
+      <div style="background:#0a0a0a;padding:2.5rem;">
+        <p style="font-size:.92rem;color:var(--muted);font-weight:300;line-height:1.85;margin-bottom:2rem;">The SuperPlex Discord is the hub for everything. Subscribe via PayPal first, then you'll receive a Discord invite link — once you join, you'll be approved and your login credentials sent through.</p>
+        <a href="https://discord.gg/quvXMaWk" target="_blank" class="btn-primary" style="display:inline-flex;align-items:center;gap:.7rem;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#0a0800"><path d="M20.317 4.492c-1.53-.69-3.17-1.2-4.885-1.49a.075.075 0 0 0-.079.036c-.21.369-.444.85-.608 1.23a18.566 18.566 0 0 0-5.487 0 12.36 12.36 0 0 0-.617-1.23A.077.077 0 0 0 8.562 3c-1.714.29-3.354.8-4.885 1.491a.07.07 0 0 0-.032.027C.533 9.093-.32 13.555.099 17.961a.08.08 0 0 0 .031.055 20.03 20.03 0 0 0 5.993 2.98.078.078 0 0 0 .084-.026 13.83 13.83 0 0 0 1.226-1.963.074.074 0 0 0-.041-.104 13.201 13.201 0 0 1-1.872-.878.075.075 0 0 1-.008-.125c.126-.093.252-.19.372-.287a.075.075 0 0 1 .078-.01c3.927 1.764 8.18 1.764 12.061 0a.075.075 0 0 1 .079.009c.12.098.245.195.372.288a.075.075 0 0 1-.006.125c-.598.344-1.22.635-1.873.877a.075.075 0 0 0-.041.105c.36.687.772 1.341 1.225 1.962a.077.077 0 0 0 .084.028 19.963 19.963 0 0 0 6.002-2.981.076.076 0 0 0 .032-.054c.5-5.094-.838-9.52-3.549-13.442a.06.06 0 0 0-.031-.028zM8.02 15.278c-1.182 0-2.157-1.069-2.157-2.38 0-1.312.956-2.38 2.157-2.38 1.21 0 2.176 1.077 2.157 2.38 0 1.312-.956 2.38-2.157 2.38zm7.975 0c-1.183 0-2.157-1.069-2.157-2.38 0-1.312.955-2.38 2.157-2.38 1.21 0 2.176 1.077 2.157 2.38 0 1.312-.946 2.38-2.157 2.38z"/></svg>
+          Join the Discord
+        </a>
+      </div>
+      <div style="background:#0a0a0a;padding:2.5rem;">
+        <div style="display:flex;flex-direction:column;gap:.9rem;">
+          <div style="display:flex;gap:1rem;align-items:flex-start;">
+            <span style="font-size:1.1rem;flex-shrink:0;">📰</span>
+            <div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.9rem;letter-spacing:.07em;text-transform:uppercase;margin-bottom:.2rem;">Newsletters</div><div style="font-size:.8rem;color:var(--muted);line-height:1.5;">Monthly updates on new content, what's been added, and what's coming.</div></div>
+          </div>
+          <div style="display:flex;gap:1rem;align-items:flex-start;">
+            <span style="font-size:1.1rem;flex-shrink:0;">🔔</span>
+            <div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.9rem;letter-spacing:.07em;text-transform:uppercase;margin-bottom:.2rem;">Announcements</div><div style="font-size:.8rem;color:var(--muted);line-height:1.5;">Service updates, new features, and anything you need to know.</div></div>
+          </div>
+          <div style="display:flex;gap:1rem;align-items:flex-start;">
+            <span style="font-size:1.1rem;flex-shrink:0;">🔧</span>
+            <div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.9rem;letter-spacing:.07em;text-transform:uppercase;margin-bottom:.2rem;">Scheduled Maintenance</div><div style="font-size:.8rem;color:var(--muted);line-height:1.5;">Advance notice before any planned downtime so you're never caught off guard.</div></div>
+          </div>
+          <div style="display:flex;gap:1rem;align-items:flex-start;">
+            <span style="font-size:1.1rem;flex-shrink:0;">🎬</span>
+            <div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.9rem;letter-spacing:.07em;text-transform:uppercase;margin-bottom:.2rem;">Content Requests</div><div style="font-size:.8rem;color:var(--muted);line-height:1.5;">Request movies and TV shows directly through Discord.</div></div>
+          </div>
+          <div style="display:flex;gap:1rem;align-items:flex-start;">
+            <span style="font-size:1.1rem;flex-shrink:0;">🛟</span>
+            <div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.9rem;letter-spacing:.07em;text-transform:uppercase;margin-bottom:.2rem;">Support &amp; Login Info</div><div style="font-size:.8rem;color:var(--muted);line-height:1.5;">Get help, retrieve your credentials, and sort any issues fast.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<style>@media(max-width:600px){.discord-grid{grid-template-columns:1fr!important;}}</style>
+
+<hr class="rule"/>
+
+<hr class="rule"/>
+
+<!-- PRICING -->
+<section class="section">
+  <span class="stag">Pricing</span>
+  <h2>Simple, fair, <span>ad-free.</span></h2>
+  <div class="price-wrap">
+    <div class="price-inner">
+      <div class="price-left">
+        <div style="font-size:.62rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:.8rem;">SuperPlex</div>
+        <div class="price-big"><sup>$</sup>10</div>
+        <div class="price-per">per month · cancel anytime</div>
+        <ul class="price-perks">
+          <li>5,000+ movies &amp; 800+ TV shows</li>
+          <li>Live TV — Foxtel, Kayo, Stan, UFC, WWE, FTA</li>
+          <li>Request anything — added within hours</li>
+          <li>Offline downloads for travel</li>
+          <li>Watch on any device, anywhere</li>
+          <li>Zero ads. Always.</li>
+        </ul>
+        <a href="#" onclick="event.preventDefault();openPPModal()" class="btn-primary">Subscribe Now</a>
+      </div>
+      <div class="price-right">
+        <div style="font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:1.2rem;">How we compare</div>
+        <div class="vs-row">
+          <div class="vs-service">Netflix Standard</div>
+          <div>
+            <div class="vs-price them">$18/mo</div>
+            <div class="vs-note">Has ads</div>
+          </div>
+        </div>
+        <div class="vs-row">
+          <div class="vs-service">Stan</div>
+          <div>
+            <div class="vs-price them">$16/mo</div>
+            <div class="vs-note">No requests</div>
+          </div>
+        </div>
+        <div class="vs-row">
+          <div class="vs-service">Kayo Sports</div>
+          <div>
+            <div class="vs-price them">$25/mo</div>
+            <div class="vs-note">Sports only</div>
+          </div>
+        </div>
+        <div class="vs-row" style="border-color:var(--border-gold);background:rgba(240,180,41,.04);">
+          <div class="vs-service" style="color:#fff;font-weight:500;">SuperPlex</div>
+          <div>
+            <div class="vs-price us">$10/mo</div>
+            <div class="vs-note good">Everything. No ads.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule"/>
+
+<hr class="rule"/>
+
+<!-- HOW TO SUBSCRIBE -->
+<section class="section">
+  <span class="stag">How to subscribe</span>
+  <h2>Three steps to <span>stay in.</span></h2>
+  <div class="steps-list">
+    <div class="step-row">
+      <div class="step-n">01</div>
+      <div class="step-body">
+        <h3>Go to superplex.org</h3>
+        <p>Head to <a href="https://superplex.org/#plus" target="_blank">superplex.org</a> and scroll to the Subscribe section.</p>
+      </div>
+    </div>
+    <div class="step-row">
+      <div class="step-n">02</div>
+      <div class="step-body">
+        <h3>Pay via PayPal</h3>
+        <p>Click the Subscribe button and complete the $10/month payment through PayPal. You can cancel anytime — no lock-in.</p>
+        <div class="sub-note">Recurring payments. Toggle off in PayPal anytime to cancel.</div>
+      </div>
+    </div>
+    <div class="step-row">
+      <div class="step-n">03</div>
+      <div class="step-body">
+        <h3>Join the Discord &amp; get your login</h3>
+        <p>After payment you'll receive a Discord invite link. Join the server, and once approved you'll receive your login credentials to start watching.</p>
+        <div class="sub-note">For more info, visit <a href="https://superplex.org" target="_blank">superplex.org</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule"/>
+
+<hr class="rule"/>
+
+<!-- HARDWARE -->
+<section class="section">
+  <span class="stag">Recommended Hardware</span>
+  <h2>The best<br><span>Plex experience.</span></h2>
+  <div class="why-grid">
+    <div class="why-left">
+      <ul class="price-perks" style="margin-bottom:1.5rem;">
+        <li>Supports 4K Ultra HD streaming</li>
+        <li>Flawless playback — no buffering or transcoding issues</li>
+        <li>Easy setup and reliable performance</li>
+        <li>Supports casting from your phone</li>
+      </ul>
+      <div style="border:1px solid rgba(224,48,48,.25);padding:1.2rem 1.5rem;margin-bottom:1.2rem;">
+        <div style="font-size:.78rem;font-weight:600;color:rgba(240,100,80,.9);margin-bottom:.6rem;">⚠️ Why we don't recommend Chromecast</div>
+        <p style="font-size:.83rem;color:rgba(220,120,100,.8);line-height:1.65;">Chromecasts don't meet the power requirements Plex needs. Buffering and poor 4K playback are common. The Fire Stick fixes all of this.</p>
+      </div>
+      <p style="font-size:.82rem;color:var(--muted);line-height:1.7;">If you're not having any issues, stick with what you have. A Firestick 4K Max is only necessary if you're experiencing problems.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:1.2rem;">
+      <div class="money-item" style="flex-direction:column;align-items:flex-start;gap:.8rem;">
+        <div style="font-size:3.5rem;">📦</div>
+        <div>
+          <h4 style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;font-size:1.6rem;text-transform:uppercase;letter-spacing:.03em;line-height:1.05;margin-bottom:.5rem;">Amazon Fire TV<br>Stick 4K Max</h4>
+          <p style="font-size:.87rem;color:var(--muted);margin-bottom:1.2rem;">The best SuperPlex experience, even without a 4K TV.</p>
+          <a href="https://amzn.to/4lPXNVV" target="_blank" style="display:inline-flex;align-items:center;gap:.6rem;padding:.85rem 1.8rem;background:var(--gold);color:#0a0800;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;transition:filter .2s;" onmouseover="this.style.filter='brightness(1.1)'" onmouseout="this.style.filter='none'">🛒 Buy on Amazon</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule"/>
+
+<hr class="rule"/>
+
+<!-- FAQ -->
+<section class="section">
+  <span class="stag">Questions</span>
+  <h2>Anything <span>unclear?</span></h2>
+  <div class="faq-list">
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">What happens if I don't subscribe by 6 March?<span class="arr">+</span></div>
+      <div class="faq-a"><p>Your Plex account will lose access to the SuperPlex server on that date. You won't lose your Plex account itself — just access to this library. Subscribe before the deadline to avoid any interruption.</p></div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Can I cancel anytime?<span class="arr">+</span></div>
+      <div class="faq-a"><p>Yes. Subscriptions are month-to-month. Cancel through PayPal whenever you want — no questions asked. Your access continues until the end of your paid period.</p></div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Why $10 and not less?<span class="arr">+</span></div>
+      <div class="faq-a"><p>$10 covers the actual running costs — server power, storage expansion, and bandwidth. Going lower would mean the service slowly degrades. <strong>Every dollar goes directly into keeping SuperPlex fast and growing.</strong></p></div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Will my existing login still work?<span class="arr">+</span></div>
+      <div class="faq-a"><p>No — after subscribing via PayPal you'll receive a Discord invite link. Join the server, get approved, and your new login credentials will be sent through. Visit <a href="https://superplex.org" target="_blank" style="color:var(--gold);">superplex.org</a> for more info.</p></div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Will there ever be ads?<span class="arr">+</span></div>
+      <div class="faq-a"><p><strong>Never.</strong> The whole point of a subscription is so ads are off the table entirely. Your $10 is what makes that permanent.</p></div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule"/>
+
+
+
+<!-- FOOTER CTA -->
+<div class="footer-cta">
+  <h2>Don't lose<br><span>access.</span></h2>
+  <p>Subscribe before 6 March 2026 to keep watching without interruption.</p>
+  <a href="#" onclick="event.preventDefault();openPPModal()" class="btn-primary">Subscribe Now — $10/mo</a>
+  <div class="fine">Secure payment via PayPal · Cancel anytime · No lock-in</div>
+</div>
+
+<footer>
+  <div class="footer-logo">Super<span>Plex</span></div>
+  <p><a href="https://superplex.org">superplex.org</a> &nbsp;·&nbsp; <a href="https://requests.superplex.org">requests.superplex.org</a> &nbsp;·&nbsp; <a href="https://discord.gg/quvXMaWk">Discord</a></p>
+</footer>
+
+<script>
+  // Countdown to Feb 27 2026 midnight AEST (UTC+11)
+  const deadline = new Date('2026-03-06T00:00:00+11:00');
+
+  function updateCountdown() {
+    const now  = new Date();
+    const diff = Math.max(0, deadline - now);
+
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000)  / 60000);
+    const s = Math.floor((diff % 60000)    / 1000);
+
+    document.getElementById('cd-d').textContent = String(d).padStart(2,'0');
+    document.getElementById('cd-h').textContent = String(h).padStart(2,'0');
+    document.getElementById('cd-m').textContent = String(m).padStart(2,'0');
+    document.getElementById('cd-s').textContent = String(s).padStart(2,'0');
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // FAQ accordion
+  function toggleFaq(el) {
+    const isOpen = el.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(f => f.classList.remove('open'));
+    if (!isOpen) el.classList.add('open');
+  }
+</script>
+
+<!-- PAYPAL MODAL -->
+<div class="pp-modal-overlay" id="ppModal" onclick="if(event.target===this)closePPModal()">
+  <div class="pp-modal">
+    <button class="pp-modal-close" onclick="closePPModal()">✕</button>
+    <h3>Subscribe to <span>SuperPlex</span></h3>
+    <p class="pp-sub">$10/month · Cancel anytime · Zero ads</p>
+    <div id="paypal-button-container-P-93Y35644EL000790VNGLE5WA"></div>
+    <p class="paypal-fine">After subscribing you'll receive a Discord invite link. Join, get approved, and your login credentials will be sent through.</p>
+  </div>
+</div>
+<script src="https://www.paypal.com/sdk/js?client-id=Aaz56dOburnAf4-HF6SbHX6zMz_hgyOob9UMxiN78AexMUHULRlgR2k53CNmMV-a_NRpz0mhOBkQvrvg&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
+<script>
+  let ppRendered = false;
+  function openPPModal() {
+    document.getElementById('ppModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    if (!ppRendered) {
+      ppRendered = true;
+      paypal.Buttons({
+        style: { shape: 'pill', color: 'gold', layout: 'vertical', label: 'subscribe' },
+        createSubscription: function(data, actions) {
+          return actions.subscription.create({ plan_id: 'P-93Y35644EL000790VNGLE5WA' });
+        },
+        onApprove: function(data, actions) {
+          closePPModal();
+          window.location.href = 'https://superplex.org/thankyou.html';
+        }
+      }).render('#paypal-button-container-P-93Y35644EL000790VNGLE5WA');
+    }
+  }
+  function closePPModal() {
+    document.getElementById('ppModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closePPModal(); });
+</script>
+
+</body>
+</html>
