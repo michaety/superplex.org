@@ -17,28 +17,45 @@
     .logo{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;font-size:1.7rem;letter-spacing:.05em;text-transform:uppercase;text-decoration:none;color:#fff;}
     .logo span{color:var(--gold);}
 
-    .poster-wall{position:fixed;inset:0;z-index:1;overflow:hidden;display:grid;grid-template-columns:repeat(10,1fr);grid-template-rows:repeat(5,1fr);gap:8px;opacity:0.2;}
-    .poster-wall::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 80% at 50% 50%,transparent 10%,rgba(0,0,0,0.6) 45%,rgba(0,0,0,0.92) 80%);pointer-events:none;z-index:2;}
+    .poster-wall{position:fixed;inset:0;z-index:1;overflow:hidden;display:grid;grid-template-columns:repeat(10,1fr);grid-template-rows:repeat(5,1fr);gap:8px;opacity:0.18;}
+    .poster-wall::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 80% at 50% 50%,transparent 10%,rgba(0,0,0,0.65) 45%,rgba(0,0,0,0.95) 80%);pointer-events:none;z-index:2;}
     .poster{width:100%;height:100%;object-fit:cover;border-radius:2px;transition:opacity 0.6s ease-in-out,transform 0.6s ease-in-out;}
     .poster.fade-out{opacity:0;transform:scale(0.95);}
     @keyframes posterFadeIn{from{opacity:0;transform:scale(0.9);}to{opacity:1;transform:scale(1);}}
 
+    /* CONFETTI CANVAS */
+    #confetti-canvas{position:fixed;inset:0;z-index:50;pointer-events:none;}
+
+    /* MAIN */
     .main{position:relative;z-index:10;flex:1;display:flex;align-items:center;justify-content:center;padding:8rem 2rem 4rem;}
     .card{max-width:560px;width:100%;text-align:center;}
 
-    .eyebrow{display:block;font-size:.65rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:1.2rem;opacity:0;animation:fadeUp .8s .1s forwards;}
-    h1{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;font-size:clamp(4rem,13vw,7rem);line-height:.88;text-transform:uppercase;letter-spacing:.02em;margin-bottom:1.5rem;opacity:0;animation:fadeUp .8s .2s forwards;}
+    /* GREEN TICK */
+    .tick-wrap{display:flex;align-items:center;justify-content:center;margin:0 auto 2rem;width:80px;height:80px;position:relative;}
+    .tick-circle{width:80px;height:80px;border-radius:50%;background:transparent;border:3px solid #2ecc71;position:absolute;transform:scale(0);animation:tick-circle-in .5s .15s cubic-bezier(.34,1.56,.64,1) forwards;}
+    .tick-circle-fill{width:80px;height:80px;border-radius:50%;background:#2ecc71;position:absolute;transform:scale(0);animation:tick-circle-in .45s .1s cubic-bezier(.34,1.56,.64,1) forwards;opacity:.15;}
+    .tick-svg{width:40px;height:40px;position:relative;z-index:2;}
+    .tick-svg path{stroke:#2ecc71;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;fill:none;stroke-dasharray:60;stroke-dashoffset:60;animation:tick-draw .45s .5s ease forwards;}
+    @keyframes tick-circle-in{from{transform:scale(0);}to{transform:scale(1);}}
+    @keyframes tick-draw{from{stroke-dashoffset:60;}to{stroke-dashoffset:0;}}
+
+    /* Ripple ring */
+    .tick-ring{position:absolute;width:80px;height:80px;border-radius:50%;border:2px solid rgba(46,204,113,.5);animation:tick-ripple .8s .55s ease-out forwards;opacity:0;}
+    @keyframes tick-ripple{from{transform:scale(1);opacity:.6;}to{transform:scale(1.8);opacity:0;}}
+
+    .eyebrow{display:block;font-size:.65rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:1.2rem;opacity:0;animation:fadeUp .8s .8s forwards;}
+    h1{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;font-size:clamp(3.5rem,12vw,6.5rem);line-height:.88;text-transform:uppercase;letter-spacing:.02em;margin-bottom:1.5rem;opacity:0;animation:fadeUp .8s .9s forwards;}
     h1 span{color:var(--gold);}
-    .divider{width:40px;height:2px;background:var(--gold);margin:0 auto 1.8rem;opacity:0;animation:expandLine .8s .3s forwards;}
+    .divider{width:40px;height:2px;background:var(--gold);margin:0 auto 1.8rem;animation:expandLine .8s 1s forwards;width:0;opacity:0;}
     @keyframes expandLine{from{width:0;opacity:0;}to{width:40px;opacity:1;}}
-    .lead{font-size:1rem;color:var(--muted);font-weight:300;line-height:1.75;max-width:400px;margin:0 auto 2.5rem;opacity:0;animation:fadeUp .8s .35s forwards;}
+    .lead{font-size:1rem;color:var(--muted);font-weight:300;line-height:1.75;max-width:420px;margin:0 auto 2.5rem;opacity:0;animation:fadeUp .8s 1.05s forwards;}
     .lead strong{color:#fff;font-weight:500;}
 
-    .discord-btn{display:inline-flex;align-items:center;gap:.8rem;padding:1rem 2.2rem;background:var(--gold);color:#0a0800;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.9rem;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;transition:filter .2s,transform .15s;opacity:0;animation:fadeUp .8s .45s forwards;}
+    .discord-btn{display:inline-flex;align-items:center;gap:.8rem;padding:1rem 2.2rem;background:var(--gold);color:#0a0800;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.9rem;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;transition:filter .2s,transform .15s;opacity:0;animation:fadeUp .8s 1.15s forwards;}
     .discord-btn:hover{filter:brightness(1.1);transform:translateY(-1px);}
     .discord-btn svg{width:20px;height:20px;fill:#0a0800;flex-shrink:0;}
 
-    .fine{margin-top:1.5rem;font-size:.72rem;color:var(--muted);line-height:1.7;opacity:0;animation:fadeUp .8s .55s forwards;}
+    .fine{margin-top:1.5rem;font-size:.72rem;color:var(--muted);line-height:1.7;opacity:0;animation:fadeUp .8s 1.25s forwards;}
 
     footer{position:relative;z-index:10;border-top:1px solid var(--border);padding:2.5rem 2rem;text-align:center;}
     .footer-logo{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;font-size:1.2rem;text-transform:uppercase;letter-spacing:.06em;color:rgba(255,255,255,.25);margin-bottom:.75rem;}
@@ -53,6 +70,8 @@
 </head>
 <body>
 
+<canvas id="confetti-canvas"></canvas>
+
 <nav>
   <a href="https://superplex.org" class="logo">Super<span>Plex</span></a>
 </nav>
@@ -61,6 +80,17 @@
 
 <main class="main">
   <div class="card">
+
+    <!-- Animated tick -->
+    <div class="tick-wrap">
+      <div class="tick-circle-fill"></div>
+      <div class="tick-circle"></div>
+      <div class="tick-ring"></div>
+      <svg class="tick-svg" viewBox="0 0 40 40">
+        <path d="M10 21 L17 29 L30 13"/>
+      </svg>
+    </div>
+
     <span class="eyebrow">Payment confirmed</span>
     <h1>Welcome to<br><span>SuperPlex</span></h1>
     <div class="divider"></div>
@@ -83,64 +113,146 @@
 </footer>
 
 <script>
-const IMAGE_BASE = 'https://image.tmdb.org/t/p/w500';
-const MOVIE_POSTERS = [
+/* ===== POSTER WALL ===== */
+const IMAGE_BASE='https://image.tmdb.org/t/p/w500';
+const MOVIE_POSTERS=[
   '/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg','/qNBAXBIQlnOThrVvA6mA2B5ggV6.jpg','/1E5baAaEse26fej7uHcjOgEE2t2.jpg',
   '/r2J02Z2OpNTctfOSN1Ydgii51I3.jpg','/tVxDe01Zy3kZqaZRNiXFGDICdZk.jpg','/vZloFAK7NmvMGKE7VkF5UHaz0I.jpg',
   '/ctMserH8g2SeOAnCw5gFjdQF8mo.jpg','/d9nBoowhjiiYc4FBNtQkPY7c11H.jpg','/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg',
   '/5ScPNT6fHtfYJeWBajZciPV3hEL.jpg','/sv1xJUazXeYqALzczSZ3O6nkH75.jpg','/rktDFPbfHfUbArZ6OOOKsXcv0Bm.jpg',
   '/8cdWjvZQUExUUTzyp4t6EDMubfO.jpg','/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg','/39wmItIWsg5sZMyRUHLkWBcuVCM.jpg',
   '/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg','/lxD5ak7BOoinRNehOCA85CQ8ubr.jpg','/rCzpDGLbOoPwLjy3OAm5NUPOTrC.jpg',
-  '/6oom5QYQ2yQTMJIbnvbkBL9cHo6.jpg','/3bhkrj58Vtu7enYsRolD1fZdja1.jpg','/9cqNxx0GxF0bflZmeSMuL5tnGzr.jpg',
-  '/xvx4Yhf0DVH8G4LzNISpMfFBDy2.jpg','/vB8o2p4ETnrfiWEgVxHmHWP9yRl.jpg','/bQXAqRx2Fgc46uCVWgoPz5L5Dtr.jpg',
-  '/ngl2FKBlU4fhbdsrtdom9LVLBXw.jpg','/dc1K3B0MtgfBAhdHUaYiVf3nsJj.jpg','/lMyWY0MB01JSufVY0bKLhfKf8KS.jpg',
-  '/rSPw7tgCH9c6NqICZef0kZjFOQ5.jpg','/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg','/nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg',
-  '/e7Jvsry47JJQruuezjU2X1Z6J77.jpg','/xDMIl84Qo5Tsu62c9DGWhmPI67A.jpg','/uUiId0135qbqvmOcbJjkSHwQuxH.jpg',
-  '/kqjL17yufvn9OVLyXYpvtyrFfak.jpg','/nMKdUUepR0i5zn0y1T4CsSB5chy.jpg','/vL5LR6WdxWPjLPFRLe133jXWsh5.jpg',
-  '/iIMsoYRHn5hjhcG4O1vkNa7ooEn.jpg','/tKMlZgss1qWt3W1a1LYCKjhO8NE.jpg','/xS8JgXLKN4HUGJiJKQVLLnlKBx2.jpg',
-  '/uDgy6hyPd82kOHh6I95FLtLnj6p.jpg','/1BIoJGKbXjdFDAqUEiA2VHqkK1Z.jpg','/ApiBzeaa95TNYliSbQ8pJv4Fje7.jpg',
+  '/6oom5QYQ2yQTMJIbnvbkBL9cHo6.jpg','/3bhkrj58Vtu7enYsRolD1fZdja1.jpg','/dc1K3B0MtgfBAhdHUaYiVf3nsJj.jpg',
+  '/lMyWY0MB01JSufVY0bKLhfKf8KS.jpg','/rSPw7tgCH9c6NqICZef0kZjFOQ5.jpg','/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg',
+  '/nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg','/xDMIl84Qo5Tsu62c9DGWhmPI67A.jpg','/kqjL17yufvn9OVLyXYpvtyrFfak.jpg',
+];
+function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
+let wallPosters=[],wallIdx=0;
+function loadPosterWall(){
+  wallPosters=shuffle(MOVIE_POSTERS.map(p=>IMAGE_BASE+p));
+  const wall=document.getElementById('posterWall');if(!wall)return;wall.innerHTML='';
+  for(let i=0;i<50;i++){const img=document.createElement('img');img.className='poster';img.src=wallPosters[i%wallPosters.length];img.alt='';img.loading=i<20?'eager':'lazy';img.style.animation=`posterFadeIn 0.8s ease-in ${i*0.02}s forwards`;img.onerror=function(){this.style.visibility='hidden';};wall.appendChild(img);}
+  setInterval(()=>{const w=document.getElementById('posterWall');if(!w||!w.children.length)return;const s=Math.floor(Math.random()*w.children.length);const img=w.children[s];wallIdx=(wallIdx+1)%wallPosters.length;img.classList.add('fade-out');setTimeout(()=>{img.src=wallPosters[wallIdx];img.classList.remove('fade-out');},600);},2500);
+}
+
+/* ===== CONFETTI ===== */
+const canvas = document.getElementById('confetti-canvas');
+const ctx = canvas.getContext('2d');
+
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+const COLORS = [
+  '#f0b429', // gold
+  '#2ecc71', // green
+  '#ffffff', // white
+  '#e74c3c', // red
+  '#3498db', // blue
+  '#9b59b6', // purple
+  '#f39c12', // orange
 ];
 
-let allPosters = [], currentIndex = 0;
-
-function shuffleArray(array) {
-  const shuffled = [...array];
-  for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+class Particle {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    const angle = Math.random() * Math.PI * 2;
+    const speed = 4 + Math.random() * 9;
+    this.vx = Math.cos(angle) * speed;
+    this.vy = Math.sin(angle) * speed - (3 + Math.random() * 4); // slight upward bias
+    this.gravity = 0.25;
+    this.drag = 0.97;
+    this.color = COLORS[Math.floor(Math.random() * COLORS.length)];
+    this.size = 6 + Math.random() * 7;
+    this.rotation = Math.random() * Math.PI * 2;
+    this.rotationSpeed = (Math.random() - 0.5) * 0.3;
+    this.opacity = 1;
+    this.shape = Math.random() < 0.5 ? 'rect' : 'circle';
+    this.life = 1;
+    this.decay = 0.012 + Math.random() * 0.008;
   }
-  return shuffled;
-}
-
-function loadPosters() {
-  allPosters = shuffleArray(MOVIE_POSTERS.map(p => IMAGE_BASE + p));
-  const wall = document.getElementById('posterWall');
-  if (!wall) return;
-  wall.innerHTML = '';
-  for (let i = 0; i < 50; i++) {
-    const img = document.createElement('img');
-    img.className = 'poster';
-    img.src = allPosters[i % allPosters.length];
-    img.alt = '';
-    img.loading = i < 20 ? 'eager' : 'lazy';
-    img.style.animation = `posterFadeIn 0.8s ease-in ${i * 0.02}s forwards`;
-    img.onerror = function() { this.style.visibility = 'hidden'; };
-    wall.appendChild(img);
+  update() {
+    this.vx *= this.drag;
+    this.vy += this.gravity;
+    this.x += this.vx;
+    this.y += this.vy;
+    this.rotation += this.rotationSpeed;
+    this.life -= this.decay;
+    this.opacity = Math.max(0, this.life);
   }
-  setInterval(rotatePoster, 2500);
+  draw(ctx) {
+    ctx.save();
+    ctx.globalAlpha = this.opacity;
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.rotation);
+    ctx.fillStyle = this.color;
+    if (this.shape === 'rect') {
+      ctx.fillRect(-this.size / 2, -this.size / 4, this.size, this.size / 2);
+    } else {
+      ctx.beginPath();
+      ctx.arc(0, 0, this.size / 2.5, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+  }
 }
 
-function rotatePoster() {
-  const wall = document.getElementById('posterWall');
-  if (!wall || !wall.children.length) return;
-  const randomSlot = Math.floor(Math.random() * wall.children.length);
-  const img = wall.children[randomSlot];
-  currentIndex = (currentIndex + 1) % allPosters.length;
-  img.classList.add('fade-out');
-  setTimeout(() => { img.src = allPosters[currentIndex]; img.classList.remove('fade-out'); }, 600);
+let particles = [];
+let animating = false;
+
+function burst(x, y, count) {
+  for (let i = 0; i < count; i++) {
+    particles.push(new Particle(x, y));
+  }
 }
 
-document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', loadPosters) : loadPosters();
+function animate() {
+  if (!animating) return;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles = particles.filter(p => p.life > 0);
+  particles.forEach(p => { p.update(); p.draw(ctx); });
+  if (particles.length > 0) {
+    requestAnimationFrame(animate);
+  } else {
+    animating = false;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+}
+
+function fireConfetti() {
+  animating = true;
+  const cx = canvas.width / 2;
+  const cy = canvas.height / 2;
+
+  // Initial big pop from center
+  burst(cx, cy, 120);
+
+  // A second smaller burst after a beat for extra pop
+  setTimeout(() => burst(cx, cy - 30, 60), 150);
+
+  // Two side bursts
+  setTimeout(() => {
+    burst(cx - 120, cy + 20, 40);
+    burst(cx + 120, cy + 20, 40);
+  }, 300);
+
+  animate();
+}
+
+/* ===== INIT ===== */
+function init() {
+  loadPosterWall();
+  // Fire confetti shortly after load — wait for tick animation to pop
+  setTimeout(fireConfetti, 600);
+}
+
+document.readyState === 'loading'
+  ? document.addEventListener('DOMContentLoaded', init)
+  : init();
 </script>
 
 </body>
