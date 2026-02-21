@@ -1008,29 +1008,21 @@
     <button class="pp-modal-close" onclick="closePPModal()">✕</button>
     <h3>Subscribe to <span>SuperPlex</span></h3>
     <p class="pp-sub">$10/month · Cancel anytime · Zero ads</p>
-    <div id="paypal-button-container-P-93Y35644EL000790VNGLE5WA"></div>
+    <div>
+      <style>.pp-MZQHEUXA9384S{text-align:center;border:none;border-radius:0.25rem;min-width:11.625rem;padding:0 2rem;height:2.625rem;font-weight:bold;background-color:#FFD140;color:#000000;font-family:"Helvetica Neue",Arial,sans-serif;font-size:1rem;line-height:1.25rem;cursor:pointer;}</style>
+      <form action="https://www.paypal.com/ncp/payment/MZQHEUXA9384S" method="post" target="_blank" style="display:inline-grid;justify-items:center;align-content:start;gap:0.5rem;">
+        <input class="pp-MZQHEUXA9384S" type="submit" value="Subscribe" />
+        <img src=https://www.paypalobjects.com/images/Debit_Credit_APM.svg alt="cards" />
+        <section style="font-size: 0.75rem;"> Powered by <img src="https://www.paypalobjects.com/paypal-ui/logos/svg/paypal-wordmark-color.svg" alt="paypal" style="height:0.875rem;vertical-align:middle;"/></section>
+      </form>
+    </div>
     <p class="paypal-fine">After subscribing you'll receive a Discord invite link. Join, get approved, and your login credentials will be sent through.</p>
   </div>
 </div>
-<script src="https://www.paypal.com/sdk/js?client-id=Aaz56dOburnAf4-HF6SbHX6zMz_hgyOob9UMxiN78AexMUHULRlgR2k53CNmMV-a_NRpz0mhOBkQvrvg&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
 <script>
-  let ppRendered = false;
   function openPPModal() {
     document.getElementById('ppModal').classList.add('open');
     document.body.style.overflow = 'hidden';
-    if (!ppRendered) {
-      ppRendered = true;
-      paypal.Buttons({
-        style: { shape: 'pill', color: 'gold', layout: 'vertical', label: 'subscribe' },
-        createSubscription: function(data, actions) {
-          return actions.subscription.create({ plan_id: 'P-93Y35644EL000790VNGLE5WA' });
-        },
-        onApprove: function(data, actions) {
-          closePPModal();
-          window.location.href = 'https://superplex.org/thankyou.html';
-        }
-      }).render('#paypal-button-container-P-93Y35644EL000790VNGLE5WA');
-    }
   }
   function closePPModal() {
     document.getElementById('ppModal').classList.remove('open');
