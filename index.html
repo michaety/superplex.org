@@ -27,8 +27,7 @@
     .hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;}
     .poster-wall{position:absolute;inset:0;z-index:1;overflow:hidden;display:grid;grid-template-columns:repeat(10,1fr);grid-template-rows:repeat(5,1fr);gap:8px;padding:0;opacity:0.38;}
     .poster-wall::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 80% at 50% 50%,transparent 10%,rgba(0,0,0,0.45) 45%,rgba(0,0,0,0.82) 80%);pointer-events:none;z-index:2;}
-    .poster{width:100%;height:100%;object-fit:cover;border-radius:2px;background:rgba(255,255,255,0.05);transition:opacity 0.6s ease-in-out,transform 0.6s ease-in-out;opacity:0;}
-    .poster.fade-out{opacity:0;transform:scale(0.95);}
+    .poster{width:100%;height:100%;object-fit:cover;border-radius:2px;background:rgba(255,255,255,0.05);opacity:0;}
     @keyframes posterFadeIn{from{opacity:0;transform:scale(0.9);}to{opacity:1;transform:scale(1);}}
     .vignette{position:absolute;inset:0;z-index:5;pointer-events:none;background:radial-gradient(ellipse 60% 100% at 50% 50%,transparent 25%,rgba(0,0,0,0.5) 65%,rgba(0,0,0,0.9) 90%);}
     .hero-content{position:relative;z-index:10;text-align:center;padding:7rem 2rem 4rem;max-width:660px;}
@@ -567,7 +566,7 @@ const PLEX_IMG_BASE = TAUTULLI_URL + '/api/v2?apikey=' + TAUTULLI_KEY + '&cmd=pm
    =========================== */
 function shuffleArray(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 
-let wallPosters=[], wallIdx=0;
+let wallPosters=[];
 async function loadPosterWall(){
   const wall=document.getElementById('posterWall');
   if(!wall)return;
@@ -617,23 +616,6 @@ async function loadPosterWall(){
       img.src = wallPosters[i];
     });
 
-    // Delay rotation start to give initial images time to load through proxy
-    setTimeout(()=>{
-      setInterval(()=>{
-        // Only swap images that have fully loaded
-        const loaded=[...wall.children].filter(img=>img.complete&&img.naturalWidth>0);
-        if(!loaded.length)return;
-        const img=loaded[Math.floor(Math.random()*loaded.length)];
-        wallIdx=(wallIdx+1)%wallPosters.length;
-        const nextSrc=wallPosters[wallIdx];
-        const preload=new Image();
-        img.style.animation='';
-        img.classList.add('fade-out');
-        preload.onload=()=>{img.src=nextSrc;img.classList.remove('fade-out');};
-        preload.onerror=()=>{img.classList.remove('fade-out');};
-        preload.src=nextSrc;
-      },2500);
-    },8000);
   } catch(e) {
     console.warn('Poster wall fetch failed:', e);
   }
