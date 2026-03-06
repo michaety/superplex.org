@@ -105,7 +105,9 @@
     .carousel-track-wrap::before,.carousel-track-wrap::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:10;pointer-events:none;}
     .carousel-track-wrap::before{left:0;background:linear-gradient(to right,#000,transparent);}
     .carousel-track-wrap::after{right:0;background:linear-gradient(to left,#000,transparent);}
-    .carousel-track{display:flex;gap:12px;padding:0 2rem;transition:transform .45s cubic-bezier(.4,0,.2,1);}
+    .carousel-track{display:flex;gap:12px;padding:0 2rem;animation:marquee 90s linear infinite;}
+    .carousel-track:hover{animation-play-state:paused;}
+    @keyframes marquee{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
     .carousel-card{flex:0 0 160px;cursor:pointer;position:relative;overflow:hidden;border-radius:3px;}
     @media(max-width:600px){.carousel-card{flex:0 0 120px;}}
     .carousel-card img{width:100%;aspect-ratio:2/3;object-fit:cover;display:block;transition:transform .35s ease,filter .35s ease;}
@@ -121,6 +123,25 @@
     .seerr-section{max-width:960px;margin:0 auto;padding:7rem 2rem;}
     .seerr-section h2{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;font-size:clamp(2.5rem,6vw,4rem);text-transform:uppercase;line-height:.95;margin-bottom:1.5rem;letter-spacing:.02em;}
     .seerr-section h2 span{color:var(--gold);}
+    .price-wrap{border:1px solid var(--border-gold);position:relative;overflow:hidden;background:#0a0a0a;}
+    .price-wrap::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+    .price-inner{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+    .price-left{padding:3rem;border-right:1px solid var(--border);}
+    .price-right{padding:3rem;display:flex;flex-direction:column;justify-content:center;}
+    .price-big{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-style:italic;font-size:6rem;line-height:1;color:var(--gold);}
+    .price-big sup{font-size:2.5rem;vertical-align:super;font-style:normal;}
+    .price-per{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin:.4rem 0 1.5rem;}
+    .price-perks{list-style:none;display:flex;flex-direction:column;gap:.7rem;margin-bottom:2rem;}
+    .price-perks li{display:flex;gap:.8rem;font-size:.87rem;color:rgba(255,255,255,.75);font-weight:300;}
+    .price-perks li::before{content:'—';color:var(--gold);flex-shrink:0;}
+    .vs-row{display:flex;gap:1rem;align-items:center;padding:1rem 1.2rem;border:1px solid var(--border);background:#060606;margin-bottom:.8rem;}
+    .vs-service{flex:1;font-size:.78rem;color:var(--muted);}
+    .vs-price{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.1rem;}
+    .vs-price.them{color:rgba(255,80,80,.7);text-decoration:line-through;}
+    .vs-price.us{color:var(--gold);}
+    .vs-note{font-size:.68rem;color:rgba(255,80,80,.5);}
+    .vs-note.good{color:rgba(100,200,100,.6);}
+    @media(max-width:600px){.price-inner{grid-template-columns:1fr;}.price-left{border-right:none;border-bottom:1px solid var(--border);padding:2rem;}.price-right{padding:2rem;}}
     .seerr-demo{border:1px solid var(--border);overflow:hidden;margin-top:3rem;}
     .seerr-demo-tabs{display:flex;border-bottom:1px solid var(--border);}
     .demo-tab{flex:1;padding:1rem;text-align:center;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;color:var(--muted);transition:color .2s,background .2s;border:none;background:transparent;}
@@ -238,8 +259,8 @@
   <div class="nav-links">
     <a href="#features">Features</a>
     <a href="#setup">Get Started</a>
-    <a href="#requests">Requests</a>
-    <a href="#pay" class="nav-btn">Why SuperPlex</a>
+    <a href="#pay">Subscribe</a>
+    <a href="#requests" class="nav-btn">Requests</a>
   </div>
 </nav>
 
@@ -285,12 +306,12 @@
     </div>
   </div>
 
-  <!-- NEW TO SUPERPLEX CAROUSEL -->
+  <!-- TOP RATED CAROUSEL -->
   <div style="margin-top:4rem;">
     <div class="carousel-header" style="padding:0;margin-bottom:1.8rem;">
       <div>
-        <span class="stag">Just added</span>
-        <h2>New to <span>SuperPlex</span></h2>
+        <span class="stag">Available right now on SuperPlex</span>
+        <h2>Only the <span>Best.</span></h2>
       </div>
       <div class="carousel-nav-btns">
         <button class="carousel-btn" onclick="slideCarousel('new', -1)">‹</button>
@@ -301,9 +322,61 @@
       <div class="carousel-track" id="carousel-new" style="padding:0 2rem;"></div>
     </div>
   </div>
+</section>
 
-  <!-- WHY IT COSTS MONEY -->
-  <div style="margin-top:4rem;border:1px solid var(--border);position:relative;overflow:hidden;" id="pay">
+<hr class="rule"/>
+
+<!-- ===== GET STARTED ===== -->
+<section class="section" id="setup">
+  <span class="stag">Get started</span>
+  <h2>Up and running<br>in <span>three steps.</span></h2>
+  <div class="steps-new">
+
+    <div class="step-new">
+      <div class="step-new-left">
+        <div class="step-icon">💳</div>
+        <div class="step-num">01</div>
+      </div>
+      <div class="step-new-right">
+        <h3>Subscribe</h3>
+        <p><a href="#pay">Subscribe</a> below via PayPal. Takes about 30 seconds.</p>
+      </div>
+    </div>
+
+    <div class="step-new">
+      <div class="step-new-left">
+        <div class="step-icon">📧</div>
+        <div class="step-num">02</div>
+      </div>
+      <div class="step-new-right">
+        <h3>Join the Discord</h3>
+        <p>The SuperPlex <a href="https://discord.gg/SV5qymfG38">Discord</a> is the only way to access your login info.</p>
+      </div>
+    </div>
+
+    <div class="step-new">
+      <div class="step-new-left">
+        <div class="step-icon">▶️</div>
+        <div class="step-num">03</div>
+      </div>
+      <div class="step-new-right">
+        <h3>Sign in &amp; start watching</h3>
+        <p>Download the Plex app on your device, sign in with the credentials provided, and hit play. It's that simple.</p>
+        <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1rem;">
+          <a href="https://apps.apple.com/app/plex/id383457673" style="display:flex;align-items:center;gap:.7rem;border:1px solid var(--border);padding:.7rem 1.2rem;color:#fff;text-decoration:none;font-size:.82rem;transition:border-color .2s;" target="_blank"><span>🍎</span><span>iOS</span></a>
+          <a href="https://play.google.com/store/apps/details?id=com.plexapp.android" style="display:flex;align-items:center;gap:.7rem;border:1px solid var(--border);padding:.7rem 1.2rem;color:#fff;text-decoration:none;font-size:.82rem;transition:border-color .2s;" target="_blank"><span>🤖</span><span>Android</span></a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="rule"/>
+
+<!-- WHY IT COSTS MONEY -->
+<section class="section wide">
+  <div style="border:1px solid var(--border);position:relative;overflow:hidden;">
     <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent);"></div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;" class="why-grid">
       <div style="padding:3rem;border-right:1px solid var(--border);">
@@ -335,23 +408,44 @@
             <div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.95rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.2rem;">Bandwidth & Uptime</div><div style="font-size:.82rem;color:var(--muted);line-height:1.6;">Fast streams for everyone, everywhere, at the same time.</div></div>
           </div>
         </div>
-        <div style="border-left:2px solid var(--gold);padding:.8rem 0 .8rem 1.2rem;font-size:.88rem;color:rgba(255,255,255,.6);font-weight:300;line-height:1.8;">
-          Netflix charges <strong style="color:#fff;">$18–$23/month</strong> and still shows you ads. SuperPlex is <strong style="color:var(--gold);">$10/month</strong>, ad-free, forever.
-        </div>
       </div>
     </div>
   </div>
   <style>@media(max-width:680px){.why-grid{grid-template-columns:1fr!important;}.why-grid>div:first-child{border-right:none!important;border-bottom:1px solid var(--border);}}</style>
 
+  <!-- HOW WE COMPARE -->
+  <div style="margin-top:1px;border:1px solid var(--border);padding:2rem;background:#0a0a0a;">
+    <div style="font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:.8rem;">How we compare</div>
+    <div class="vs-row">
+      <div class="vs-service">Netflix Standard</div>
+      <div><div class="vs-price them">$18/mo</div><div class="vs-note">Has ads</div></div>
+    </div>
+    <div class="vs-row">
+      <div class="vs-service">Stan</div>
+      <div><div class="vs-price them">$16/mo</div><div class="vs-note">No requests</div></div>
+    </div>
+    <div class="vs-row">
+      <div class="vs-service">Kayo Sports</div>
+      <div><div class="vs-price them">$25/mo</div><div class="vs-note">Sports only</div></div>
+    </div>
+    <div class="vs-row" style="border-color:var(--border-gold);background:rgba(240,180,41,.04);">
+      <div class="vs-service" style="color:#fff;font-weight:500;">SuperPlex</div>
+      <div><div class="vs-price us">$10/mo</div><div class="vs-note good">Everything. No ads.</div></div>
+    </div>
+  </div>
+
   <!-- SUBSCRIBE -->
-  <div class="plus-box" style="margin-top:1px;" id="subscribe">
+  <div class="plus-box" style="margin-top:1px;" id="pay">
     <div class="plus-left">
-      <h2 style="margin-bottom:.5rem;">Join <span>SuperPlex</span></h2>
+      <h2 style="margin-bottom:.3rem;">Subscribe for <span>only $10</span></h2>
+      <div style="font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);font-weight:400;margin-bottom:1.2rem;">per month · cancel anytime</div>
       <ul class="plus-perks">
-        <li>Foxtel/Kayo, Stan, UFC, WWE, Free-to-air, and more</li>
-        <li>5,000+ movies and 800+ TV shows on demand</li>
+        <li>5,000+ movies &amp; 800+ TV shows</li>
+        <li>Live TV — Foxtel, Kayo, Stan, UFC, WWE, FTA</li>
         <li>Request anything — added within hours</li>
-        <li>Zero ads, zero throttling</li>
+        <li>Offline downloads for travel</li>
+        <li>Watch on any device, anywhere</li>
+        <li>Zero ads. Always.</li>
       </ul>
     </div>
     <div class="plus-right">
@@ -363,58 +457,55 @@
           <section style="font-size: 0.75rem;"> Powered by <img src="https://www.paypalobjects.com/paypal-ui/logos/svg/paypal-wordmark-color.svg" alt="paypal" style="height:0.875rem;vertical-align:middle;"/></section>
         </form>
       </div>
-      <p class="paypal-fine">Secure payment via PayPal. After subscribing, check your email for a welcome link to get set up.</p>
+      <p class="paypal-fine">Secure payment via PayPal. After subscribing, join the Discord and your login credentials will be sent through.</p>
     </div>
   </div>
 </section>
 
+<hr class="rule"/>
 
-
-<!-- ===== GET STARTED ===== -->
-<section class="section" id="setup">
-  <span class="stag">Get started</span>
-  <h2>Up and running<br>in <span>three steps.</span></h2>
-  <div class="steps-new">
-
-    <div class="step-new">
-      <div class="step-new-left">
-        <div class="step-icon">💳</div>
-        <div class="step-num">01</div>
+<!-- DISCORD -->
+<section class="section" id="discord">
+  <span class="stag">Community</span>
+  <h2>Join the <span>Discord.</span></h2>
+  <div style="border:1px solid var(--border-gold);background:#0a0a0a;position:relative;overflow:hidden;">
+    <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);" class="discord-grid">
+      <div style="background:#0a0a0a;padding:2.5rem;">
+        <p style="font-size:.92rem;color:var(--muted);font-weight:300;line-height:1.85;margin-bottom:2rem;">The SuperPlex Discord is the hub for everything. Subscribe via PayPal, join the Discord, and your login credentials will be sent through.</p>
+        <a href="https://discord.gg/SV5qymfG38" target="_blank" class="btn-primary" style="display:inline-flex;align-items:center;gap:.7rem;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#0a0800"><path d="M20.317 4.492c-1.53-.69-3.17-1.2-4.885-1.49a.075.075 0 0 0-.079.036c-.21.369-.444.85-.608 1.23a18.566 18.566 0 0 0-5.487 0 12.36 12.36 0 0 0-.617-1.23A.077.077 0 0 0 8.562 3c-1.714.29-3.354.8-4.885 1.491a.07.07 0 0 0-.032.027C.533 9.093-.32 13.555.099 17.961a.08.08 0 0 0 .031.055 20.03 20.03 0 0 0 5.993 2.98.078.078 0 0 0 .084-.026 13.83 13.83 0 0 0 1.226-1.963.074.074 0 0 0-.041-.104 13.201 13.201 0 0 1-1.872-.878.075.075 0 0 1-.008-.125c.126-.093.252-.19.372-.287a.075.075 0 0 1 .078-.01c3.927 1.764 8.18 1.764 12.061 0a.075.075 0 0 1 .079.009c.12.098.245.195.372.288a.075.075 0 0 1-.006.125c-.598.344-1.22.635-1.873.877a.075.075 0 0 0-.041.105c.36.687.772 1.341 1.225 1.962a.077.077 0 0 0 .084.028 19.963 19.963 0 0 0 6.002-2.981.076.076 0 0 0 .032-.054c.5-5.094-.838-9.52-3.549-13.442a.06.06 0 0 0-.031-.028zM8.02 15.278c-1.182 0-2.157-1.069-2.157-2.38 0-1.312.956-2.38 2.157-2.38 1.21 0 2.176 1.077 2.157 2.38 0 1.312-.956 2.38-2.157 2.38zm7.975 0c-1.183 0-2.157-1.069-2.157-2.38 0-1.312.955-2.38 2.157-2.38 1.21 0 2.176 1.077 2.157 2.38 0 1.312-.946 2.38-2.157 2.38z"/></svg>
+          Join the Discord
+        </a>
       </div>
-      <div class="step-new-right">
-        <h3>Subscribe</h3>
-        <p>Head to the <a href="#pay">Subscribe section</a> above and complete payment securely via PayPal. Takes about 30 seconds. You'll get a confirmation email from PayPal right away.</p>
-      </div>
-    </div>
-
-    <div class="step-new">
-      <div class="step-new-left">
-        <div class="step-icon">📧</div>
-        <div class="step-num">02</div>
-      </div>
-      <div class="step-new-right">
-        <h3>Join the Discord &amp; get your login</h3>
-        <p>After subscribing via PayPal you'll receive a Discord invite link. Join the server — once approved, your login credentials will be sent through.</p>
-      </div>
-    </div>
-
-    <div class="step-new">
-      <div class="step-new-left">
-        <div class="step-icon">▶️</div>
-        <div class="step-num">03</div>
-      </div>
-      <div class="step-new-right">
-        <h3>Sign in &amp; start watching</h3>
-        <p>Download the Plex app on your device, sign in with the credentials provided in Discord, and hit play. It's that simple.</p>
-        <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1rem;">
-          <a href="https://apps.apple.com/app/plex/id383457673" style="display:flex;align-items:center;gap:.7rem;border:1px solid var(--border);padding:.7rem 1.2rem;color:#fff;text-decoration:none;font-size:.82rem;transition:border-color .2s;" target="_blank"><span>🍎</span><span>iOS</span></a>
-          <a href="https://play.google.com/store/apps/details?id=com.plexapp.android" style="display:flex;align-items:center;gap:.7rem;border:1px solid var(--border);padding:.7rem 1.2rem;color:#fff;text-decoration:none;font-size:.82rem;transition:border-color .2s;" target="_blank"><span>🤖</span><span>Android</span></a>
+      <div style="background:#0a0a0a;padding:2.5rem;">
+        <div style="display:flex;flex-direction:column;gap:.9rem;">
+          <div style="display:flex;gap:1rem;align-items:flex-start;">
+            <span style="font-size:1.1rem;flex-shrink:0;">📰</span>
+            <div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.9rem;letter-spacing:.07em;text-transform:uppercase;margin-bottom:.2rem;">Newsletters</div><div style="font-size:.8rem;color:var(--muted);line-height:1.5;">Monthly updates on new content, what's been added, and what's coming.</div></div>
+          </div>
+          <div style="display:flex;gap:1rem;align-items:flex-start;">
+            <span style="font-size:1.1rem;flex-shrink:0;">🔔</span>
+            <div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.9rem;letter-spacing:.07em;text-transform:uppercase;margin-bottom:.2rem;">Announcements</div><div style="font-size:.8rem;color:var(--muted);line-height:1.5;">Service updates, new features, and anything you need to know.</div></div>
+          </div>
+          <div style="display:flex;gap:1rem;align-items:flex-start;">
+            <span style="font-size:1.1rem;flex-shrink:0;">🔧</span>
+            <div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.9rem;letter-spacing:.07em;text-transform:uppercase;margin-bottom:.2rem;">Scheduled Maintenance</div><div style="font-size:.8rem;color:var(--muted);line-height:1.5;">Advance notice before any planned downtime so you're never caught off guard.</div></div>
+          </div>
+          <div style="display:flex;gap:1rem;align-items:flex-start;">
+            <span style="font-size:1.1rem;flex-shrink:0;">🎬</span>
+            <div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.9rem;letter-spacing:.07em;text-transform:uppercase;margin-bottom:.2rem;">Content Requests</div><div style="font-size:.8rem;color:var(--muted);line-height:1.5;">Request movies and TV shows directly through Discord.</div></div>
+          </div>
+          <div style="display:flex;gap:1rem;align-items:flex-start;">
+            <span style="font-size:1.1rem;flex-shrink:0;">🛟</span>
+            <div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.9rem;letter-spacing:.07em;text-transform:uppercase;margin-bottom:.2rem;">Support &amp; Login Info</div><div style="font-size:.8rem;color:var(--muted);line-height:1.5;">Get help, retrieve your credentials, and sort any issues fast.</div></div>
+          </div>
         </div>
       </div>
     </div>
-
   </div>
 </section>
+<style>@media(max-width:600px){.discord-grid{grid-template-columns:1fr!important;}}</style>
 
 <hr class="rule"/>
 
@@ -697,33 +788,63 @@ function showCarouselSkeleton() {
   }
 }
 
-async function loadCarouselFromTautulli() {
-  showCarouselSkeleton();
-  try {
-    const url  = TAUTULLI_URL + '/api/v2?apikey=' + TAUTULLI_KEY + '&cmd=get_recently_added&count=30';
-    const res  = await fetch(url);
-    const json = await res.json();
-    const raw  = json?.response?.data?.recently_added;
-    if (!raw || !raw.length) throw new Error('No data');
-    buildCarouselFromItems(processRecentlyAdded(raw));
-  } catch (e) {
-    console.warn('Tautulli fetch failed:', e);
-    const track = document.getElementById('carousel-new');
-    if (track) track.innerHTML = '';
-  }
+const TOP_RATED = [
+  {title:'The Shawshank Redemption',thumbPath:'/library/metadata/208558/thumb/1642335998',type:'movie'},
+  {title:'Breaking Bad',thumbPath:'/library/metadata/144591/thumb/1630534837',type:'show'},
+  {title:'The Dark Knight',thumbPath:'/library/metadata/207918/thumb/1642335826',type:'movie'},
+  {title:'Fargo',thumbPath:'/library/metadata/144666/thumb/1629995168',type:'show'},
+  {title:'Pulp Fiction',thumbPath:'/library/metadata/206981/thumb/1642335468',type:'movie'},
+  {title:'Game of Thrones',thumbPath:'/library/metadata/155973/thumb/1630419937',type:'show'},
+  {title:'The Godfather',thumbPath:'/library/metadata/208034/thumb/1642335866',type:'movie'},
+  {title:'Chernobyl',thumbPath:'/library/metadata/189549/thumb/1642159599',type:'show'},
+  {title:'Interstellar',thumbPath:'/library/metadata/205897/thumb/1642335123',type:'movie'},
+  {title:'Better Call Saul',thumbPath:'/library/metadata/144217/thumb/1629858301',type:'show'},
+  {title:'Shutter Island',thumbPath:'/library/metadata/207316/thumb/1642335554',type:'movie'},
+  {title:'Succession',thumbPath:'/library/metadata/166009/thumb/1638326593',type:'show'},
+  {title:'Inception',thumbPath:'/library/metadata/205838/thumb/1642335110',type:'movie'},
+  {title:'House of the Dragon',thumbPath:'/library/metadata/419653/thumb/1661066670',type:'show'},
+  {title:'Forrest Gump',thumbPath:'/library/metadata/205290/thumb/1642334940',type:'movie'},
+  {title:'The Mandalorian',thumbPath:'/library/metadata/151173/thumb/1630417475',type:'show'},
+  {title:'The Matrix',thumbPath:'/library/metadata/208338/thumb/1647132055',type:'movie'},
+  {title:'True Detective',thumbPath:'/library/metadata/320435/thumb/1652176712',type:'show'},
+  {title:'Goodfellas',thumbPath:'/library/metadata/205500/thumb/1642334995',type:'movie'},
+  {title:'The Truman Show',thumbPath:'/library/metadata/208646/thumb/1642336021',type:'movie'},
+  {title:'Parasite',thumbPath:'/library/metadata/206852/thumb/1642335432',type:'movie'},
+  {title:'Gladiator',thumbPath:'/library/metadata/205456/thumb/1642334979',type:'movie'},
+  {title:'Whiplash',thumbPath:'/library/metadata/209063/thumb/1642336233',type:'movie'},
+  {title:'Schindler\'s List',thumbPath:'/library/metadata/207216/thumb/1642335530',type:'movie'},
+  {title:'Django Unchained',thumbPath:'/library/metadata/204916/thumb/1642334777',type:'movie'},
+  {title:'The Departed',thumbPath:'/library/metadata/207938/thumb/1647080845',type:'movie'},
+  {title:'The Prestige',thumbPath:'/library/metadata/208473/thumb/1647131054',type:'movie'},
+  {title:'Se7en',thumbPath:'/library/metadata/207245/thumb/1642335537',type:'movie'},
+  {title:'Spirited Away',thumbPath:'/library/metadata/207495/thumb/1642335606',type:'movie'},
+  {title:'Saving Private Ryan',thumbPath:'/library/metadata/207182/thumb/1642335520',type:'movie'},
+  {title:'Dune',thumbPath:'/library/metadata/205020/thumb/1642334820',type:'movie'},
+  {title:'No Country for Old Men',thumbPath:'/library/metadata/206677/thumb/1642335395',type:'movie'},
+  {title:'Top Gun',thumbPath:'/library/metadata/208819/thumb/1642336162',type:'movie'},
+];
+
+function loadTopRatedCarousel() {
+  // Double the items for seamless looping
+  buildCarouselFromItems([...TOP_RATED, ...TOP_RATED]);
 }
 
 function slideCarousel(id, dir) {
   const track = document.getElementById('carousel-new');
-  if (!track || !carouselItems.length) return;
-  const visible   = Math.floor(track.parentElement.offsetWidth / getCardWidth());
-  const maxOffset = Math.max(0, carouselItems.length - visible);
-  carouselOffset  = Math.max(0, Math.min(maxOffset, carouselOffset + dir * 3));
-  track.style.transform = `translateX(-${carouselOffset * getCardWidth()}px)`;
+  if (!track) return;
+  // Nudge the animation forward/backward by adjusting offset
+  const current = parseFloat(getComputedStyle(track).transform.split(',')[4]) || 0;
+  const nudge = dir * getCardWidth() * 3;
+  track.style.animation = 'none';
+  track.style.transform = `translateX(${current + nudge}px)`;
+  // Resume animation from new position after a brief pause
+  requestAnimationFrame(() => {
+    track.style.animation = '';
+  });
 }
 
 function buildAllCarousels() {
-  loadCarouselFromTautulli();
+  loadTopRatedCarousel();
 }
 
 /* ===========================
@@ -750,6 +871,18 @@ function animateRequest(){
   // Switch to done tab after a beat
   setTimeout(()=>switchTab(3),800);
 }
+
+/* ===========================
+   SCROLL #pay TO CENTER
+   =========================== */
+document.addEventListener('click',function(e){
+  const a=e.target.closest('a[href="#pay"]');
+  if(!a)return;
+  e.preventDefault();
+  const el=document.getElementById('pay');
+  if(el) el.scrollIntoView({behavior:'smooth',block:'center'});
+  history.replaceState(null,null,'#pay');
+});
 
 /* ===========================
    INIT
