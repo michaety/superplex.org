@@ -556,34 +556,22 @@
 
 <script>
 /* ===========================
+   SHARED CONSTANTS
+   =========================== */
+const TAUTULLI_URL  = 'https://t.plxpi.cc';
+const TAUTULLI_KEY  = 'bfdd55689d62470fa691af6776b77428';
+const PLEX_IMG_BASE = TAUTULLI_URL + '/api/v2?apikey=' + TAUTULLI_KEY + '&cmd=pms_image_proxy&img=';
+
+/* ===========================
    POSTER WALL
    =========================== */
-const IMAGE_BASE = 'https://image.tmdb.org/t/p/w500';
-const MOVIE_POSTERS = [
-  '/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg','/qNBAXBIQlnOThrVvA6mA2B5ggV6.jpg','/1E5baAaEse26fej7uHcjOgEE2t2.jpg',
-  '/r2J02Z2OpNTctfOSN1Ydgii51I3.jpg','/tVxDe01Zy3kZqaZRNiXFGDICdZk.jpg','/vZloFAK7NmvMGKE7VkF5UHaz0I.jpg',
-  '/ctMserH8g2SeOAnCw5gFjdQF8mo.jpg','/d9nBoowhjiiYc4FBNtQkPY7c11H.jpg','/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg',
-  '/5ScPNT6fHtfYJeWBajZciPV3hEL.jpg','/sv1xJUazXeYqALzczSZ3O6nkH75.jpg','/rktDFPbfHfUbArZ6OOOKsXcv0Bm.jpg',
-  '/8cdWjvZQUExUUTzyp4t6EDMubfO.jpg','/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg','/39wmItIWsg5sZMyRUHLkWBcuVCM.jpg',
-  '/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg','/lxD5ak7BOoinRNehOCA85CQ8ubr.jpg','/rCzpDGLbOoPwLjy3OAm5NUPOTrC.jpg',
-  '/6oom5QYQ2yQTMJIbnvbkBL9cHo6.jpg','/3bhkrj58Vtu7enYsRolD1fZdja1.jpg','/9cqNxx0GxF0bflZmeSMuL5tnGzr.jpg',
-  '/nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg','/rSPw7tgCH9c6NqICZef0kZjFOQ5.jpg','/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg',
-  '/xDMIl84Qo5Tsu62c9DGWhmPI67A.jpg','/uUiId0135qbqvmOcbJjkSHwQuxH.jpg','/kqjL17yufvn9OVLyXYpvtyrFfak.jpg',
-  '/nMKdUUepR0i5zn0y1T4CsSB5chy.jpg','/vL5LR6WdxWPjLPFRLe133jXWsh5.jpg','/iIMsoYRHn5hjhcG4O1vkNa7ooEn.jpg',
-  '/tKMlZgss1qWt3W1a1LYCKjhO8NE.jpg','/xS8JgXLKN4HUGJiJKQVLLnlKBx2.jpg','/uDgy6hyPd82kOHh6I95FLtLnj6p.jpg',
-  '/1BIoJGKbXjdFDAqUEiA2VHqkK1Z.jpg','/ApiBzeaa95TNYliSbQ8pJv4Fje7.jpg','/e7Jvsry47JJQruuezjU2X1Z6J77.jpg',
-  '/dc1K3B0MtgfBAhdHUaYiVf3nsJj.jpg','/lMyWY0MB01JSufVY0bKLhfKf8KS.jpg','/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg',
-  '/xfSAoBEm9MNBjmlNcDYLvLSMlnq.jpg','/hO7KbdvGOtDdeg0W4Y5nKEHeDDh.jpg','/c9XxwwhPHdaImA2f1WEfEsbhaFB.jpg',
-  '/hbhFnRzzg6ZDmm8YAmxBnQpQIPh.jpg','/yPisjyLweCl1tbgwgtzBCNCBle.jpg','/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg',
-];
-
 function shuffleArray(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 
 let wallPosters=[], wallIdx=0;
-function loadPosterWall(){
-  wallPosters=shuffleArray(MOVIE_POSTERS.map(p=>IMAGE_BASE+p));
+function buildPosterWall(posters){
   const wall=document.getElementById('posterWall');
-  if(!wall)return;
+  if(!wall||!posters.length)return;
+  wallPosters=shuffleArray(posters);
   wall.innerHTML='';
   for(let i=0;i<50;i++){
     const img=document.createElement('img');
@@ -608,15 +596,42 @@ function loadPosterWall(){
   },2500);
 }
 
+async function loadPosterWall(){
+  try {
+    const url = TAUTULLI_URL + '/api/v2?apikey=' + TAUTULLI_KEY + '&cmd=get_recently_added&count=200';
+    const res = await fetch(url);
+    const json = await res.json();
+    const items = json?.response?.data?.recently_added || [];
+    const seen = new Set();
+    const posters = [];
+    for (const item of items) {
+      let thumb;
+      if (item.media_type === 'movie') {
+        thumb = item.thumb;
+      } else if (item.media_type === 'episode') {
+        if (seen.has(item.grandparent_rating_key)) continue;
+        seen.add(item.grandparent_rating_key);
+        thumb = item.grandparent_thumb;
+      } else if (item.media_type === 'show') {
+        if (seen.has(item.rating_key)) continue;
+        seen.add(item.rating_key);
+        thumb = item.thumb;
+      }
+      if (thumb) posters.push(PLEX_IMG_BASE + encodeURIComponent(thumb) + '&width=300&height=450');
+    }
+    if (!posters.length) throw new Error('No posters returned');
+    buildPosterWall(posters);
+  } catch(e) {
+    console.warn('Poster wall fetch failed:', e);
+  }
+}
+
 /* ===========================
    CAROUSELS
    =========================== */
 /* ===========================
    TAUTULLI CAROUSEL
    =========================== */
-const TAUTULLI_URL  = 'https://t.plxpi.cc';
-const TAUTULLI_KEY  = 'bfdd55689d62470fa691af6776b77428';
-const PLEX_IMG_BASE = TAUTULLI_URL + '/api/v2?apikey=' + TAUTULLI_KEY + '&cmd=pms_image_proxy&img=';
 
 let carouselItems = [];
 let carouselOffset = 0;
