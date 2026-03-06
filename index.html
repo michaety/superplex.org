@@ -588,42 +588,52 @@ async function loadPosterWall(){
     const seen = new Set();
     const posters = [];
     for (const item of items) {
-      let thumb;
+      let thumb, key;
       if (item.media_type === 'movie') {
+        key = item.rating_key;
         thumb = item.thumb;
       } else if (item.media_type === 'episode') {
-        if (seen.has(item.grandparent_rating_key)) continue;
-        seen.add(item.grandparent_rating_key);
+        key = 'show_' + item.grandparent_rating_key;
         thumb = item.grandparent_thumb;
       } else if (item.media_type === 'show') {
-        if (seen.has(item.rating_key)) continue;
-        seen.add(item.rating_key);
+        key = 'show_' + item.rating_key;
         thumb = item.thumb;
       }
-      if (thumb) posters.push(PLEX_IMG_BASE + encodeURIComponent(thumb) + '&width=150&height=225');
+      if (!thumb || !key || seen.has(key)) continue;
+      seen.add(key);
+      posters.push(PLEX_IMG_BASE + encodeURIComponent(thumb) + '&width=150&height=225');
     }
     if (!posters.length) throw new Error('No posters returned');
 
     wallPosters = shuffleArray(posters);
+
+    // Only fill as many slots as we have unique posters (no wrapping duplicates)
+    const count = Math.min(50, wallPosters.length);
     const imgs = [...wall.children];
-    imgs.forEach((img, i) => {
+    imgs.slice(count).forEach(img => img.remove());
+    imgs.slice(0, count).forEach((img, i) => {
       img.onload = () => { img.style.animation = `posterFadeIn 0.8s ease-in ${(i % 20) * 0.04}s forwards`; };
       img.onerror = () => { img.style.visibility='hidden'; };
-      img.src = wallPosters[i % wallPosters.length];
+      img.src = wallPosters[i];
     });
 
-    setInterval(()=>{
-      if(!wall.children.length)return;
-      const slot=Math.floor(Math.random()*wall.children.length);
-      const img=wall.children[slot];
-      wallIdx=(wallIdx+1)%wallPosters.length;
-      const nextSrc=wallPosters[wallIdx];
-      const preload=new Image();
-      preload.src=nextSrc;
-      img.style.animation='';
-      img.classList.add('fade-out');
-      setTimeout(()=>{img.src=nextSrc;img.classList.remove('fade-out');},600);
-    },2500);
+    // Delay rotation start to give initial images time to load through proxy
+    setTimeout(()=>{
+      setInterval(()=>{
+        // Only swap images that have fully loaded
+        const loaded=[...wall.children].filter(img=>img.complete&&img.naturalWidth>0);
+        if(!loaded.length)return;
+        const img=loaded[Math.floor(Math.random()*loaded.length)];
+        wallIdx=(wallIdx+1)%wallPosters.length;
+        const nextSrc=wallPosters[wallIdx];
+        const preload=new Image();
+        img.style.animation='';
+        img.classList.add('fade-out');
+        preload.onload=()=>{img.src=nextSrc;img.classList.remove('fade-out');};
+        preload.onerror=()=>{img.classList.remove('fade-out');};
+        preload.src=nextSrc;
+      },2500);
+    },8000);
   } catch(e) {
     console.warn('Poster wall fetch failed:', e);
   }
