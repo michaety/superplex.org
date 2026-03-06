@@ -597,8 +597,12 @@ function loadPosterWall(){
     const slot=Math.floor(Math.random()*wall.children.length);
     const img=wall.children[slot];
     wallIdx=(wallIdx+1)%wallPosters.length;
+    const nextSrc=wallPosters[wallIdx];
+    const preload=new Image();
+    preload.src=nextSrc;
+    img.style.animation='';
     img.classList.add('fade-out');
-    setTimeout(()=>{img.src=wallPosters[wallIdx];img.classList.remove('fade-out');},600);
+    setTimeout(()=>{img.src=nextSrc;img.classList.remove('fade-out');},600);
   },2500);
 }
 
