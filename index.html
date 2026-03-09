@@ -450,8 +450,8 @@
     </div>
     <div class="plus-right">
       <div id="plan-selector" style="display:flex; gap:12px; margin-bottom:16px;">
-        <button id="btn-monthly" onclick="renderButton('monthly')" style="padding:10px 24px; border-radius:999px; border:2px solid #0070ba; background:#0070ba; color:white; cursor:pointer; font-weight:bold;">Monthly</button>
-        <button id="btn-yearly" onclick="renderButton('yearly')" style="padding:10px 24px; border-radius:999px; border:2px solid #0070ba; background:white; color:#0070ba; cursor:pointer; font-weight:bold;">Yearly</button>
+        <button id="btn-monthly" onclick="renderButton('monthly')" style="padding:10px 24px; border-radius:999px; border:2px solid #f0b429; background:#f0b429; color:#0a0800; cursor:pointer; font-weight:bold;">Monthly</button>
+        <button id="btn-yearly" onclick="renderButton('yearly')" style="padding:10px 24px; border-radius:999px; border:2px solid #f0b429; background:transparent; color:#f0b429; cursor:pointer; font-weight:bold;">Yearly</button>
       </div>
       <div id="paypal-button-container"></div>
       <p class="paypal-fine">Secure payment via PayPal. After subscribing, join the Discord and your login credentials will be sent through.</p>
@@ -900,10 +900,10 @@ if(document.readyState==='loading'){
   };
 
   function renderButton(type) {
-    document.getElementById('btn-monthly').style.background = type === 'monthly' ? '#0070ba' : 'white';
-    document.getElementById('btn-monthly').style.color = type === 'monthly' ? 'white' : '#0070ba';
-    document.getElementById('btn-yearly').style.background = type === 'yearly' ? '#0070ba' : 'white';
-    document.getElementById('btn-yearly').style.color = type === 'yearly' ? 'white' : '#0070ba';
+    document.getElementById('btn-monthly').style.background = type === 'monthly' ? '#f0b429' : 'transparent';
+    document.getElementById('btn-monthly').style.color = type === 'monthly' ? '#0a0800' : '#f0b429';
+    document.getElementById('btn-yearly').style.background = type === 'yearly' ? '#f0b429' : 'transparent';
+    document.getElementById('btn-yearly').style.color = type === 'yearly' ? '#0a0800' : '#f0b429';
 
     document.getElementById('paypal-button-container').innerHTML = '';
 

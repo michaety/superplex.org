@@ -1009,8 +1009,8 @@
     <h3>Subscribe to <span>SuperPlex</span></h3>
     <p class="pp-sub">Cancel anytime · Zero ads</p>
     <div id="plan-selector-modal" style="display:flex; gap:12px; margin-bottom:16px;">
-      <button id="btn-monthly-modal" onclick="renderModalButton('monthly')" style="padding:10px 24px; border-radius:999px; border:2px solid #0070ba; background:#0070ba; color:white; cursor:pointer; font-weight:bold;">Monthly</button>
-      <button id="btn-yearly-modal" onclick="renderModalButton('yearly')" style="padding:10px 24px; border-radius:999px; border:2px solid #0070ba; background:white; color:#0070ba; cursor:pointer; font-weight:bold;">Yearly</button>
+      <button id="btn-monthly-modal" onclick="renderModalButton('monthly')" style="padding:10px 24px; border-radius:999px; border:2px solid #f0b429; background:#f0b429; color:#0a0800; cursor:pointer; font-weight:bold;">Monthly</button>
+      <button id="btn-yearly-modal" onclick="renderModalButton('yearly')" style="padding:10px 24px; border-radius:999px; border:2px solid #f0b429; background:transparent; color:#f0b429; cursor:pointer; font-weight:bold;">Yearly</button>
     </div>
     <div id="paypal-button-container-modal"></div>
     <p class="paypal-fine">After subscribing you'll receive a Discord invite link. Join, get approved, and your login credentials will be sent through.</p>
@@ -1039,10 +1039,10 @@
   let modalRendered = false;
 
   function renderModalButton(type) {
-    document.getElementById('btn-monthly-modal').style.background = type === 'monthly' ? '#0070ba' : 'white';
-    document.getElementById('btn-monthly-modal').style.color = type === 'monthly' ? 'white' : '#0070ba';
-    document.getElementById('btn-yearly-modal').style.background = type === 'yearly' ? '#0070ba' : 'white';
-    document.getElementById('btn-yearly-modal').style.color = type === 'yearly' ? 'white' : '#0070ba';
+    document.getElementById('btn-monthly-modal').style.background = type === 'monthly' ? '#f0b429' : 'transparent';
+    document.getElementById('btn-monthly-modal').style.color = type === 'monthly' ? '#0a0800' : '#f0b429';
+    document.getElementById('btn-yearly-modal').style.background = type === 'yearly' ? '#f0b429' : 'transparent';
+    document.getElementById('btn-yearly-modal').style.color = type === 'yearly' ? '#0a0800' : '#f0b429';
 
     document.getElementById('paypal-button-container-modal').innerHTML = '';
 
