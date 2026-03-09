@@ -449,14 +449,11 @@
       </ul>
     </div>
     <div class="plus-right">
-      <div>
-        <style>.pp-MZQHEUXA9384S{text-align:center;border:none;border-radius:0.25rem;min-width:11.625rem;padding:0 2rem;height:2.625rem;font-weight:bold;background-color:#FFD140;color:#000000;font-family:"Helvetica Neue",Arial,sans-serif;font-size:1rem;line-height:1.25rem;cursor:pointer;}</style>
-        <form action="https://www.paypal.com/ncp/payment/MZQHEUXA9384S" method="post" target="_blank" style="display:inline-grid;justify-items:center;align-content:start;gap:0.5rem;">
-          <input class="pp-MZQHEUXA9384S" type="submit" value="Subscribe" />
-          <img src=https://www.paypalobjects.com/images/Debit_Credit_APM.svg alt="cards" />
-          <section style="font-size: 0.75rem;"> Powered by <img src="https://www.paypalobjects.com/paypal-ui/logos/svg/paypal-wordmark-color.svg" alt="paypal" style="height:0.875rem;vertical-align:middle;"/></section>
-        </form>
+      <div id="plan-selector" style="display:flex; gap:12px; margin-bottom:16px;">
+        <button id="btn-monthly" onclick="renderButton('monthly')" style="padding:10px 24px; border-radius:999px; border:2px solid #0070ba; background:#0070ba; color:white; cursor:pointer; font-weight:bold;">Monthly</button>
+        <button id="btn-yearly" onclick="renderButton('yearly')" style="padding:10px 24px; border-radius:999px; border:2px solid #0070ba; background:white; color:#0070ba; cursor:pointer; font-weight:bold;">Yearly</button>
       </div>
+      <div id="paypal-button-container"></div>
       <p class="paypal-fine">Secure payment via PayPal. After subscribing, join the Discord and your login credentials will be sent through.</p>
     </div>
   </div>
@@ -892,6 +889,41 @@ if(document.readyState==='loading'){
 }else{
   loadPosterWall();buildAllCarousels();
 }
+</script>
+
+<!-- PayPal Subscription SDK -->
+<script src="https://www.paypal.com/sdk/js?client-id=Aaz56dOburnAf4-HF6SbHX6zMz_hgyOob9UMxiN78AexMUHULRlgR2k53CNmMV-a_NRpz0mhOBkQvrvg&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
+<script>
+  const plans = {
+    monthly: 'P-632176915U6494623NGRDORA',
+    yearly:  'P-93Y35644EL000790VNGLE5WA'
+  };
+
+  function renderButton(type) {
+    document.getElementById('btn-monthly').style.background = type === 'monthly' ? '#0070ba' : 'white';
+    document.getElementById('btn-monthly').style.color = type === 'monthly' ? 'white' : '#0070ba';
+    document.getElementById('btn-yearly').style.background = type === 'yearly' ? '#0070ba' : 'white';
+    document.getElementById('btn-yearly').style.color = type === 'yearly' ? 'white' : '#0070ba';
+
+    document.getElementById('paypal-button-container').innerHTML = '';
+
+    paypal.Buttons({
+      style: {
+        shape: 'pill',
+        color: 'white',
+        layout: 'vertical',
+        label: 'subscribe'
+      },
+      createSubscription: function(data, actions) {
+        return actions.subscription.create({ plan_id: plans[type] });
+      },
+      onApprove: function(data, actions) {
+        alert(data.subscriptionID);
+      }
+    }).render('#paypal-button-container');
+  }
+
+  renderButton('monthly');
 </script>
 
 </body>
